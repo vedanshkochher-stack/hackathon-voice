@@ -7,7 +7,7 @@ from functools import lru_cache
 
 import numpy as np
 
-from ctxlayer.config import NAME_MODEL
+from ctxlayer.config import MODEL_CACHE_DIR, NAME_MODEL
 
 _lock = threading.Lock()  # first load downloads the model; never twice in parallel
 warnings.filterwarnings("ignore", message=".*now uses mean pooling.*")  # mean pooling is right for MiniLM
@@ -17,7 +17,7 @@ warnings.filterwarnings("ignore", message=".*now uses mean pooling.*")  # mean p
 def _model():
     from fastembed import TextEmbedding
     with _lock:
-        return TextEmbedding(NAME_MODEL)
+        return TextEmbedding(NAME_MODEL, cache_dir=str(MODEL_CACHE_DIR))
 
 
 def embed_names(texts: list[str], batch_size: int = 256) -> np.ndarray:

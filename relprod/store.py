@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import csv
 import fcntl
+import hashlib
 import json
 import logging
 import re
@@ -106,8 +107,12 @@ def _files(out_dir: Path) -> tuple[Path, Path, Path]:
 
 
 def _fingerprint(csv_path: Path) -> dict:
-    st = csv_path.stat()
-    return {"csv": str(csv_path), "csv_size": st.st_size, "csv_mtime": int(st.st_mtime), "model": NAME_MODEL}
+    """Content hash, not mtime: a git checkout or a deploy copy changes mtimes but not the data."""
+    h = hashlib.sha1()
+    with open(csv_path, "rb") as f:
+        while block := f.read(1 << 20):
+            h.update(block)
+    return {"csv": str(csv_path), "csv_sha1": h.hexdigest(), "model": NAME_MODEL}
 
 
 def _save(out_dir: Path, index, meta: dict):
@@ -135,7 +140,7 @@ class RelatedStore:
             meta = json.loads(meta_path.read_text())
         except (OSError, ValueError):
             return None
-        if not meta.get("complete") or {k: meta.get(k) for k in ("csv_size", "csv_mtime", "model")} != \
+        if not meta.get("complete") or {k: meta.get(k) for k in ("csv_sha1", "model")} != \
                 {k: v for k, v in _fingerprint(csv_path).items() if k != "csv"}:
             return None
         names = names_path.read_text(encoding="utf-8").split("\n")

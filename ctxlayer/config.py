@@ -99,6 +99,8 @@ ITEM_NAME_COLUMNS = ("glcat_mcat_name", "pc_item_name")  # first one present in 
 # (the 1.89M pc_item names would take ~70 min; multilingual L12 ~3.3 h). Ranks Packaging Tape / Bubble Wrap for Corrugated Box and Water Softener
 # for RO Plant. English-only, like pc_item names. Vectors are saved under PC_ITEM_DIR; restarts load them.
 NAME_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+# Inside the project, not /tmp: on Render only what the build writes into the project survives into runtime.
+MODEL_CACHE_DIR = Path(os.environ.get("FASTEMBED_CACHE_PATH", ROOT / ".models"))
 RELATED_TOP_K = 3             # the API returns 3; the bot speaks at most 2 of them
 # Complement grounding: the Sarvam LLM names what a buyer of the lead needs alongside it (accessories, spares,
 # consumables, services); those names are matched to real items in the store. On whenever SARVAM_API_KEY is set
