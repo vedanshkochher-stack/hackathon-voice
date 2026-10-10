@@ -25,3 +25,8 @@ watermark: 0
 - next: ask:Spindle Speed; offer:live_seller
 - summary: Hot buyer, mid-way on CNC Milling Machine (Voice, 10 Oct): quantity, Axis given; Spindle Speed, Budget pending. Speaks English.
 - state: CNC Milling Machine (in progress) · captured: quantity=1 Unit; Axis=3 Axis · pending: Spindle Speed; Budget · next: ask:Spindle Speed; offer:live_seller
+
+## Update #2 · 2026-10-10T18:07+05:30 · voice · Shubh · -
+> Changes from this conversation. Where this differs from the sections above, this update is newer and wins.
+- conversation: The agent called Priya regarding her interest in a CNC Milling Machine, but the user denied needing the product and ended the conversation.
+- state: CNC Milling Machine (in progress) · captured: quantity=1 Unit; Axis=3 Axis · pending: Spindle Speed; Budget · next: ask:Spindle Speed; offer:live_seller
