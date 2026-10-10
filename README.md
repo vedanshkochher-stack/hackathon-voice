@@ -29,7 +29,7 @@ demo** in the UI between runs. Set `KEEP_STATE=1` to keep state across restarts.
 | `python scripts/measure_freshness.py` | freshness evidence → `out/freshness_report.md` |
 | `python scripts/eval_lift.py` | cold vs context comparison → `out/lift_report.md` |
 | `python scripts/make_slide.py` | the one-slide presentation → `slide/one_slide.html` + `.png` |
-| `python -m pytest -q` | 12 tests: privacy, size, conflicts, lookback, freshness, no re-ask, leak guard, consumers |
+| `python -m pytest -q` | 29 tests: privacy, size, conflicts, lookback, freshness, no re-ask, leak guard, consumers, related products |
 | `python -m consumers.wa_campaign` / `python -m consumers.exec_call_prep 70221003 seller` | non-bot uses from the CLI |
 
 ## Live demo script (5 minutes)
@@ -63,6 +63,38 @@ demo** in the UI between runs. Set `KEEP_STATE=1` to keep state across restarts.
    `python -m pytest -q` (0 PII patterns in any file).
 11. **New activity** buttons. Each fires a real event; watch the file rewrite and the freshness pill in the header update.
 
+### Related products for a buyer (top 3)
+
+Put the item list at `data/item/items.csv.csv`, or point `PC_ITEM_CSV=/path/to.csv` at it. The name column is
+`glcat_mcat_name` (MCAT names, 110k rows) or `pc_item_name`; other columns are ignored.
+
+Complements come from the Sarvam LLM whenever `SARVAM_API_KEY` is in `.env`: it names what a buyer of the lead
+needs alongside it (Water Storage Tank → Water Level Controller, Float Valve…), and each name is matched to a real
+item in the store. `RELATED_LLM=off` disables it. Optional: `GOOGLE_API_KEY` and `GOOGLE_CSE_ID` add Google
+result titles the same way. Both are cached per lead in `data/item/grounding_cache.json`.
+
+Build the vector store once (110k names: ~4 min on 8 CPU cores, resumable, saved under `data/item/`), then every
+server start loads it into an in-memory FAISS index in seconds:
+
+```bash
+python -m relprod                          # build, or load if the CSV and model are unchanged
+python -m relprod "Water Storage Tank"     # ... and print the top 3 related items for a lead
+```
+
+If the server starts first, it builds in the background (one builder at a time across processes).
+`GET /api/related/{glid}?k=3` reads that buyer's context and matches the current
+lead plus the products they liked / viewed (`product.like` / `product.view` events) against it:
+
+```json
+{"glid": "50112001", "lead": "PVC Pipe", "liked": [], "viewed": ["Solvent Cement", "Pipe Fittings"],
+ "items": [{"product": "PVC Pipe Fittings Tee", "name": "PVC Pipe Fittings Tee", "score": 0.857, "matched_by": "lead"}, ...],
+ "source": "vector_store", "store": {"state": "ready", "items": 33}}
+```
+
+Until the store is `ready`, answers come from catalogue co-purchases. On a call: pick **Sunita (Jaipur)** (a BL
+and nothing else), start a call, click **No**: the BL is closed and VANI offers two of the three. Design:
+`docs/DESIGN.md#related`.
+
 ## Repository map
 
 ```
@@ -76,6 +108,7 @@ ctxlayer/            the context layer (no bot code)
   reader.py          the only API consumers need
   opening.py         deterministic personalised openings (buyer + seller, voice + WhatsApp)
   bridge.py          file -> VANI prompt variables (+ context block)
+relprod/             related products: item / MCAT names -> in-memory FAISS, matched on lead + liked/viewed
 bot/                 channel-agnostic dialog engine, Sarvam LLM/STT/TTS, NLU, lift evaluation
   prompts/           buyer_vani.j2 (condensed VANI), context_block.j2 (paste-in), seller_assist.j2
 consumers/           exec call prep, sales dashboard, WhatsApp campaign: read files only

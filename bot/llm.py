@@ -12,9 +12,9 @@ from ctxlayer.config import SARVAM_API_KEY, SARVAM_BASE, SARVAM_CHAT_MODEL
 
 
 class SarvamLLM:
-    def __init__(self, key: str = SARVAM_API_KEY, model: str = SARVAM_CHAT_MODEL):
+    def __init__(self, key: str = SARVAM_API_KEY, model: str = SARVAM_CHAT_MODEL, timeout: float = 25):
         self.key, self.model = key, model
-        self._http = httpx.Client(timeout=25)
+        self._http = httpx.Client(timeout=timeout)
         self.calls, self.total_ms, self.errors = 0, 0.0, 0
 
     @property

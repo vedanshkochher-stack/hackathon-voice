@@ -100,7 +100,8 @@ def render_buyer(p: dict, caps: dict | None = None, ref: datetime | None = None)
             "last_channel": th.get("last_channel"), "last_at": _iso(th.get("last_at")),
             "captured": th["captured"], "pending": th["pending"], "notes": th["notes"] or None,
         },
-        "interests": [{"product": i["product"], "last": i["last"].date().isoformat(), "n": i["n"], "via": i["via"]}
+        "interests": [{"product": i["product"], "last": i["last"].date().isoformat(), "n": i["n"], "via": i["via"],
+                       **({"liked": True} if i.get("liked") else {})}
                       for i in p.get("interests", [])[:4]],
         "purchases": [{"product": x["product"], "last": x["last"].date().isoformat(), "note": x["note"]}
                       for x in p.get("purchases", [])[:2]],

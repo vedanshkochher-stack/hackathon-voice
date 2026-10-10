@@ -109,7 +109,7 @@ def _engagement(events, ref, days, initiated_types) -> dict:
 
 # ======================================================================= buyer
 BUYER_ACTIVITY = {"search", "pns.call", "enquiry.created", "enquiry.update", "engagement",
-                  "conversation.update", "conversation.ended"}
+                  "conversation.update", "conversation.ended", "product.view", "product.like"}
 
 
 def build_buyer(glid: str, events: list[dict], ref: datetime | None = None) -> dict:
@@ -218,6 +218,9 @@ def build_buyer(glid: str, events: list[dict], ref: datetime | None = None) -> d
         elif e["type"] == "pns.call" and _within(e, LOOKBACK_DAYS["sellers_contacted"], ref):
             key = catalog.canonical_product(p.get("product")) or p.get("product")
             via = "seller call"
+        elif e["type"] in ("product.view", "product.like") and _within(e, LOOKBACK_DAYS["searches"], ref):
+            key = catalog.canonical_product(p.get("product")) or p.get("product")
+            via = "liked" if e["type"] == "product.like" else "viewed"
         else:
             continue
         if not key:
@@ -226,6 +229,8 @@ def build_buyer(glid: str, events: list[dict], ref: datetime | None = None) -> d
         rec["n"] += 1
         if _ts(e) >= rec["last"]:
             rec["last"], rec["via"] = _ts(e), via
+        if via == "liked":
+            rec["liked"] = True   # a like outlasts later plain views of the same product
 
     # ---- sellers contacted (60d)
     sellers: dict[str, dict] = {}

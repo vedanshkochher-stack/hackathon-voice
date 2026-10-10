@@ -20,9 +20,10 @@ import uuid
 from collections import Counter
 from dataclasses import dataclass, field
 
+import relprod
 from ctxlayer import catalog, privacy, reader
 from ctxlayer.bridge import live_seller, render_prompt, seller_variables, vani_variables
-from ctxlayer.config import ASK_LIMITS
+from ctxlayer.config import ASK_LIMITS, RELATED_TOP_K
 from ctxlayer.opening import ask_text, buyer_opening, seller_ask_text, seller_opening
 from ctxlayer.util import iso, now, parse_ts, when_spoken
 
@@ -84,6 +85,10 @@ T = {
     "probe_one": ("Kya aapko {a} ki zarurat hai, ya koi aur product chahiye?", "Do you need {a}, or any other product?"),
     "probe_generic": ("Kya abhi ya jald hi kisi aur product ki requirement hai?", "Is there any other product you need now or soon?"),
     "probe_pick": ("Inme se kaunsa chahiye, {a} ya {b}?", "Which one do you need, {a} or {b}?"),
+    "related_two": ("IndiaMART par {p} se jude products mein {a} aur {b} bhi milte hain. Kya aapko inme se kisi ki zarurat hai?",
+                    "On IndiaMART, products related to {p} include {a} and {b}. Do you need either of these?"),
+    "related_one": ("IndiaMART par {p} se juda ek product {a} bhi hai. Kya aapko iski zarurat hai?",
+                    "On IndiaMART, a product related to {p} is {a}. Do you need it?"),
     "close_postponed": ("Koi baat nahi. Aapki requirement save hai, agli baar hum wahin se aage badhenge. Dhanyavaad.",
                         "No problem. I've saved your requirement, and next time we'll pick up right where we left off. Thank you."),
     "close_withdrawn": ("Theek hai, koi baat nahi. Jab bhi kisi product ki zarurat ho, IndiaMART par zaroor bataiye. Dhanyavaad.",
@@ -182,6 +187,7 @@ class Session:
     suggestions: list = field(default_factory=list)
     suggestion_meta: dict = field(default_factory=dict)  # product -> {via, last, personal}: where/when we saw it
     dropped: list = field(default_factory=list)        # products the buyer withdrew in this session
+    related: list = field(default_factory=list)        # top-k related pc_items for a withdrawn BL (relprod)
 
 
 class Engine:
@@ -267,6 +273,8 @@ class Engine:
             s.phase, s.expect = "identify", "product"
             s.asks["product"] += 1
         s.live = live_seller(s.product, exclude=s.call_seller) if s.product else None
+        if th and s.product and not _has_history(s):  # BL-only buyer: get related products ready for a "no"
+            relprod.prefetch(s.ctx_meta, lead=s.product)
         return op
 
     def _start_seller(self, s: Session, ctx, outbound):
@@ -458,16 +466,19 @@ class Engine:
         withdrew = n.has("ALREADY_BOUGHT") or (no_longer_said and not n.has("ASK_FOR_ALTERNATE_SELLER"))
         suggested_and_denied = (s.phase == "confirm" and n.has("DENY") and not s.dropped
                                 and s.opening.get("scenario") in ("intent_suggest", "called_product"))
-        if (withdrew or suggested_and_denied) and not got and not n.new_product \
+        bare_no_to_bl = (n.intents == {"DENY"} and s.opening.get("scenario") == "resume_pending" and not _has_history(s)
+                         and sum(1 for x in s.transcript if x["who"] == "user") == 1)  # "No" to the BL opening
+        if (withdrew or suggested_and_denied or bare_no_to_bl) and not got and not n.new_product \
                 and s.phase in ("collect", "offer", "confirm", "feedback") and (s.product or s.candidate):
             return self._withdraw(s, n, pre, info)
 
         if s.phase == "probe":
-            prod = n.new_product
+            offered = s.suggestions + [r["product"] for r in s.related if r["product"] not in s.suggestions]
+            prod = n.new_product or _pick(text, offered, spoken=len(s.suggestions))
             if not prod and n.has("AFFIRM") and len(s.suggestions) == 1:
                 prod = s.suggestions[0]
             if prod:
-                if catalog.product(prod):  # buyer named it in answer to our probe: requirement confirmed
+                if catalog.product(prod) or prod in offered:  # named in answer to our probe: confirmed
                     return self._accept_product(s, prod, text, pre, info)
                 s.candidate, s.phase, s.expect = prod, "confirm", "product_confirm"
                 s.asks["product"] += 1
@@ -603,7 +614,7 @@ class Engine:
         s.product = s.candidate = s.thread_ref = s.live = None
         if s.probed:
             return self._close(s, "requirement_withdrawn", pre, info)
-        s.probed, s.suggestions = True, self._suggest(s)
+        s.probed, s.suggestions = True, self._suggest(s, bl=old if had_thread else None)
         s.phase, s.expect = "probe", "product"
         s.asks["product"] += 1
         s.metrics["questions"] += 1
@@ -617,6 +628,8 @@ class Engine:
         lang, sg = s.lang, s.suggestions
         if not sg:
             return t("probe_generic", lang)
+        if s.suggestion_meta[sg[0]]["via"] == "related":  # BL-only buyer: related products, never "you searched"
+            return t("related_two", lang, p=old, a=sg[0], b=sg[1]) if len(sg) > 1 else t("related_one", lang, p=old, a=sg[0])
         personal = [p for p in sg if s.suggestion_meta[p]["personal"]]
         if personal:
             items = []
@@ -639,11 +652,13 @@ class Engine:
         frm = ((f" {seller.group(1)} se" if lang == "hi" else f" from {seller.group(1)}") if seller else "")
         return t("seen_bought", lang, p=p, when=when_spoken(parse_ts(m["last"]), lang), frm=frm)
 
-    def _suggest(self, s: Session) -> list[str]:
-        """Products to probe for, only from the buyer's own history in the file, each with source and date:
+    def _suggest(self, s: Session, bl: str | None = None) -> list[str]:
+        """Products to probe for, from the buyer's own history in the file, each with source and date:
         1. what they checked recently on IndiaMART (searches, calls to sellers), up to two, newest first;
         2. otherwise what they actually bought (repeat order), the latest one;
-        3. otherwise nothing, and the probe is a plain "any other requirement?" question."""
+        3. no history at all but they withdrew a BL: the top related pc_items to that BL (relprod: FAISS
+           over pc_item names, optionally grounded with Google search), up to two spoken, top 3 kept;
+        4. otherwise nothing, and the probe is a plain "any other requirement?" question."""
         m = s.ctx_meta or {}
         excl = {catalog.canonical_product(p) for p in s.dropped if p}
         out, meta = [], {}
@@ -660,6 +675,11 @@ class Engine:
                     out, meta[c] = [c], {"via": "purchase", "last": str(x.get("last")), "note": x.get("note"),
                                          "personal": False}
                     break
+        if not out and bl and not _has_history(s):
+            s.related = relprod.for_buyer(s.ctx_meta, lead=bl, k=RELATED_TOP_K, exclude=s.dropped)["items"]
+            for r in s.related[:2]:
+                out.append(r["product"])
+                meta[r["product"]] = {"via": "related", "personal": False, "name": r["name"]}
         s.suggestion_meta = meta
         return out
 
@@ -964,12 +984,32 @@ class Engine:
                 "lang": s.lang, "languages": s.languages,
                 "prefilled": sorted(s.prefilled), "closed": sorted(s.closed), "asks": dict(s.asks),
                 "notes": s.notes, "outcome": s.outcome, "ended": s.ended, "metrics": dict(s.metrics),
-                "live_seller": s.live, "channel": s.channel, "warm": s.warm, "glid": s.glid, "role": s.role,
+                "live_seller": s.live, "related": s.related, "channel": s.channel, "warm": s.warm, "glid": s.glid, "role": s.role,
                 "turns": sum(1 for x in s.transcript if x["who"] == "user")}
 
 
 def seller_opening_q(s: Session) -> str:
     return "Kya aapki us buyer se baat ho payi?" if s.lang == "hi" else "Were you able to speak to that buyer?"
+
+
+def _has_history(s: Session) -> bool:
+    """What the probe can cite from the buyer's own file: recent interests or purchases."""
+    return bool(s.ctx_meta.get("interests") or s.ctx_meta.get("purchases"))
+
+
+ORDINALS = [("pehla", "pehle wala", "first", "पहला"), ("doosra", "dusra", "doosre", "second", "दूसरा")]
+
+
+def _pick(text: str, options: list[str], spoken: int) -> str | None:
+    """Which suggestion the buyer chose: 'doosra' / 'the first one' (of the `spoken` ones), or by name
+    from any of the options ('water filter wala', also top-k items that were not read out)."""
+    low = text.lower()
+    for i, words in enumerate(ORDINALS[:min(spoken, len(options))]):
+        if any(re.search(rf"(?<!\w){re.escape(w)}(?!\w)", low) for w in words):
+            return options[i]
+    scored = [(sum(w in low for w in o.lower().split() if len(w) > 3), o) for o in options]
+    best = max(scored, default=(0, None))
+    return best[1] if best[0] and [x for x, _ in scored].count(best[0]) == 1 else None
 
 
 def _confirm_text(prod: str, lang: str) -> str:

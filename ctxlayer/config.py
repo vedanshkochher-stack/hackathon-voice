@@ -62,7 +62,10 @@ def load_env() -> None:
             line = line.strip()
             if line and not line.startswith("#") and "=" in line:
                 k, v = line.split("=", 1)
-                os.environ.setdefault(k.strip(), v.strip())
+                v = v.strip()
+                if len(v) >= 2 and v[0] == v[-1] and v[0] in "\"'":  # KEY="value" as in standard .env files
+                    v = v[1:-1]
+                os.environ.setdefault(k.strip(), v)
 
 
 load_env()
@@ -86,3 +89,23 @@ SARVAM_TTS_ROUTE = {
 }
 SARVAM_TTS_PACE = float(os.environ.get("SARVAM_TTS_PACE", "1.25"))  # bulbul pace: 1.0 = default, 1.25 ~ 20% faster
 SARVAM_STT_MODEL = os.environ.get("SARVAM_STT_MODEL", "saaras:v4")
+
+# Related products (relprod/): item names in an in-memory FAISS index, matched against the buyer's current
+# lead and the products they viewed / liked (from buyer.md). See docs/DESIGN.md#related.
+PC_ITEM_DIR = Path(os.environ.get("PC_ITEM_DIR", DATA_DIR / "item"))  # CSV + saved index, git-ignored
+PC_ITEM_CSV = Path(os.environ.get("PC_ITEM_CSV", PC_ITEM_DIR / "items.csv.csv"))
+ITEM_NAME_COLUMNS = ("glcat_mcat_name", "pc_item_name")  # first one present in the CSV header is used
+# all-MiniLM-L6 (384-d, ONNX via fastembed): 456 names/s on 8 CPU cores: the 110k MCAT names embed in ~4 min
+# (the 1.89M pc_item names would take ~70 min; multilingual L12 ~3.3 h). Ranks Packaging Tape / Bubble Wrap for Corrugated Box and Water Softener
+# for RO Plant. English-only, like pc_item names. Vectors are saved under PC_ITEM_DIR; restarts load them.
+NAME_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+RELATED_TOP_K = 3             # the API returns 3; the bot speaks at most 2 of them
+# Complement grounding: the Sarvam LLM names what a buyer of the lead needs alongside it (accessories, spares,
+# consumables, services); those names are matched to real items in the store. On whenever SARVAM_API_KEY is set
+# (RELATED_LLM=off disables it). Cached per lead on disk; on a call it runs in the background prefetch.
+RELATED_LLM = os.environ.get("RELATED_LLM", "sarvam").lower()
+RELATED_LLM_TIMEOUT_S = float(os.environ.get("RELATED_LLM_TIMEOUT_S", "8"))
+# Google grounding (Programmable Search JSON API). Optional: without keys the store alone answers.
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "")
+GOOGLE_CSE_ID = os.environ.get("GOOGLE_CSE_ID", "")
+GROUNDING_TIMEOUT_S = 1.5     # on the call path: a slow search is skipped, never waited on

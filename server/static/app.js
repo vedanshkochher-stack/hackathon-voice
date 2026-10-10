@@ -20,6 +20,7 @@ const QUICK = {
                "nahi ji, ab kuch nahi chahiye", "haan, pipe fittings chahiye, 200 piece", "elbow"],
   "50112002": ["SS 304 please. What's the price range?", "FRP is fine", "Connect me", "We already bought it from a local vendor", "Yes, a water softener, 2 units"],
   "50112003": ["haan, 500 roll chahiye", "1 meter aur 70 micron", "haan connect karo"],
+  "50112004": ["No", "nahi, ab requirement nahi hai", "doosra wala", "haan", "4 piece", "nahi kuch nahi"],
   "50119999": ["mujhe PVC pipe chahiye", "haan", "200 piece", "4 inch", "6 kg", "Vikram", "Surat", "Gujarat", "haan"],
   "70221001": ["haan baat hui, quotation bhej diya", "pehle buyer ka naam aur number batao, usne kis kis se baat ki?", "nahi abhi call nahi kiya", "haan bhej do"],
   "70221002": ["haan, order mil gaya", "100 roll", "nahi"],

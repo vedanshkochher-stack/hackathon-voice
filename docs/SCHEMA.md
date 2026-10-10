@@ -18,6 +18,8 @@ Read with `ctxlayer.reader.read(glid, role)` or any YAML-frontmatter parser.
 | `sources_missing` | list | sources that were down at build time |
 | `open_thread` | `{product, ref, status, last_channel, last_at, captured{}, pending[], notes[]}` | the requirement to resume; `status` ∈ open, in_progress, transferred |
 | `intent` | `{product, mcat, last_search_at}` | recent interest without an enquiry (suggest, never quote) |
+| `interests` | list of `{product, last, n, via, liked?}`, newest first, max 4 | products the buyer viewed, liked, searched (30d) or called a seller about (60d); `via` ∈ app/web search, seller call, viewed, liked |
+| `purchases` | list of `{product, last, note}` | closed-as-purchased enquiries (90d): repeat-order candidates |
 | `signals` | `{warmth, last_active, active_days_30d, preferred_channel}` | engagement |
 | `next` | list of `ask:<field>`, `offer:live_seller`, `followup:<product>`, `suggest:<product>` | next best actions in order |
 | `never_ask` | list | fields any consumer must treat as known |
