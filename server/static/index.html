@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vani · Memory Across Channels</title>
+<script>
+  // apply the saved theme before first paint (no flash); default follows the OS setting
+  (function () {
+    try {
+      var t = localStorage.getItem("vani-theme");
+      if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    } catch (e) { /* storage blocked (private mode): fall back to the OS theme */ }
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <div class="logo" aria-hidden="true">V</div>
+    <div>
+      <div class="brand-title">Vani <span class="brand-dim">· Memory Across Channels</span></div>
+      <div class="brand-sub">GLID context layer → buyer.md / seller.md → voice agent</div>
+    </div>
+  </div>
+  <div class="top-right">
+    <span class="pill" id="pill-llm"><span class="pdot"></span><span class="ptxt">LLM …</span></span>
+    <span class="pill" id="pill-fresh" title="Event ingested → context file rewritten"><span class="ptxt">freshness …</span></span>
+    <button class="btn ghost" id="btn-reset" title="Re-seed synthetic data anchored to now">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4" /></svg>Reset demo
+    </button>
+    <button class="icon-btn" id="theme-toggle" title="Switch light / dark theme" aria-label="Switch light or dark theme">
+      <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="grid">
+  <aside class="col left">
+    <section class="card">
+      <div class="card-head"><h3>People</h3><span class="hint">synthetic GLIDs</span></div>
+      <div id="people" class="people"></div>
+    </section>
+    <section class="card">
+      <div class="card-head"><h3>New activity</h3><span class="hint">fires a real event</span></div>
+      <div id="presets" class="presets"></div>
+    </section>
+  </aside>
+
+  <section class="col mid card file-card">
+    <div class="file-head">
+      <div class="file-title">
+        <svg class="file-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>
+        <div>
+          <div class="file-path" id="file-path">out/context/…</div>
+          <div class="file-meta" id="file-meta"></div>
+        </div>
+      </div>
+      <div class="toast" id="toast"></div>
+    </div>
+    <pre class="md" id="md"></pre>
+  </section>
+
+  <section class="col right">
+    <div class="call card" id="ch-voice">
+      <div class="call-head">
+        <div class="call-who">
+          <div class="avatar bot-av" aria-hidden="true">V</div>
+          <div>
+            <div class="call-name">Vani <span class="call-sub">IndiaMART voice agent</span></div>
+            <div class="call-status" id="call-status"><span class="sdot"></span><span class="stxt">Ready</span></div>
+          </div>
+        </div>
+        <div class="call-btns">
+          <button class="btn call-start start"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Start call</button>
+          <button class="btn call-end end" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15c5-5 13-5 18 0l-2.5 2.5-3.5-2v-2.5a12 12 0 0 0-6 0V15l-3.5 2z"/></svg>Drop</button>
+        </div>
+      </div>
+      <div class="call-opts">
+        <label class="switch"><input type="checkbox" class="warm" checked><span class="track"></span>Use context</label>
+        <label class="switch"><input type="checkbox" class="tts" checked><span class="track"></span>Speak</label>
+        <label class="speed">Speed
+          <select class="pace" title="Voice speed (Sarvam bulbul pace)">
+            <option value="1.0">1.0×</option><option value="1.15">1.15×</option>
+            <option value="1.25" selected>1.25×</option><option value="1.4">1.4×</option><option value="1.6">1.6×</option>
+          </select>
+        </label>
+      </div>
+      <div class="ch-info"></div>
+      <div class="msgs"></div>
+      <div class="chips"></div>
+      <form class="composer">
+        <button type="button" class="mic" title="Hold to talk (Sarvam saaras STT)" aria-label="Hold to talk" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+        </button>
+        <input type="text" id="say" aria-label="What the caller says" placeholder="Type what the caller says…" disabled>
+        <button class="send" aria-label="Send" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<section class="drawer card">
+  <nav class="tabs" id="tabs">
+    <button data-tab="prompt" class="on">VANI prompt</button>
+    <button data-tab="prep">Exec call prep</button>
+  </nav>
+  <div class="tab" id="tab-prompt"><p class="empty">Start a call to see the VANI variables the context layer filled and the rendered prompt.</p></div>
+  <div class="tab hidden" id="tab-prep"></div>
+</section>
+<script src="/static/app.js"></script>
+</body>
+</html>

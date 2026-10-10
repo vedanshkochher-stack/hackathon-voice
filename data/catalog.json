@@ -1,0 +1,317 @@
+{
+  "_note": "Stand-in for the MCAT taxonomy / requested_another_product_tool output that VANI already receives (quantity_unit_options + specification_options). SYNTHETIC.",
+  "products": {
+    "PVC Pipe": {
+      "mcat": "PVC Pipes",
+      "units": [
+        "Piece",
+        "Meter"
+      ],
+      "specs": {
+        "Size": [
+          "2 inch",
+          "4 inch",
+          "6 inch"
+        ],
+        "Pressure Rating": [
+          "4 kg/cm2",
+          "6 kg/cm2",
+          "10 kg/cm2"
+        ]
+      },
+      "purpose": {
+        "hi": "plumbing aur paani ki supply line ke kaam aata hai",
+        "en": "used for plumbing and water supply lines"
+      },
+      "related": [
+        "Pipe Fittings",
+        "Solvent Cement",
+        "CPVC Pipe"
+      ]
+    },
+    "CPVC Pipe": {
+      "mcat": "CPVC Pipes",
+      "units": [
+        "Piece",
+        "Meter"
+      ],
+      "specs": {
+        "Size": [
+          "0.5 inch",
+          "1 inch"
+        ],
+        "SDR": [
+          "SDR 11",
+          "SDR 13.5"
+        ]
+      },
+      "purpose": {
+        "hi": "garam aur thande paani ki fitting ke kaam aata hai",
+        "en": "used for hot and cold water plumbing"
+      },
+      "related": [
+        "Pipe Fittings",
+        "Solvent Cement",
+        "PVC Pipe"
+      ]
+    },
+    "Pipe Fittings": {
+      "mcat": "Pipe Fittings",
+      "units": [
+        "Piece",
+        "Box"
+      ],
+      "specs": {
+        "Type": [
+          "Elbow",
+          "Tee",
+          "Coupler"
+        ]
+      },
+      "purpose": {
+        "hi": "pipe jodne ke kaam aate hain",
+        "en": "used to join pipes"
+      },
+      "related": [
+        "PVC Pipe",
+        "Solvent Cement"
+      ]
+    },
+    "Water Storage Tank": {
+      "mcat": "Water Storage Tanks",
+      "units": [
+        "Piece"
+      ],
+      "specs": {
+        "Capacity": [
+          "500 L",
+          "1000 L",
+          "2000 L"
+        ]
+      },
+      "purpose": {
+        "hi": "ghar aur building mein paani store karne ke kaam aata hai",
+        "en": "used to store water in homes and buildings"
+      },
+      "related": [
+        "PVC Pipe",
+        "Pipe Fittings"
+      ]
+    },
+    "Industrial RO Plant": {
+      "mcat": "Industrial RO Plants",
+      "units": [
+        "Unit"
+      ],
+      "specs": {
+        "Capacity": [
+          "1000 LPH",
+          "2000 LPH",
+          "5000 LPH"
+        ],
+        "Body Material": [
+          "SS 304",
+          "FRP"
+        ]
+      },
+      "purpose": {
+        "hi": "factory aur commercial jagah par paani saaf karne ke kaam aata hai",
+        "en": "used to purify water for factories and commercial sites"
+      },
+      "related": [
+        "Water Softener",
+        "Water Storage Tank"
+      ]
+    },
+    "Water Softener": {
+      "mcat": "Water Softeners",
+      "units": [
+        "Unit"
+      ],
+      "specs": {
+        "Capacity": [
+          "1000 LPH",
+          "3000 LPH"
+        ]
+      },
+      "purpose": {
+        "hi": "khaare paani ko soft karne ke kaam aata hai",
+        "en": "used to soften hard water"
+      },
+      "related": [
+        "Industrial RO Plant"
+      ]
+    },
+    "Corrugated Box": {
+      "mcat": "Corrugated Boxes",
+      "units": [
+        "Piece"
+      ],
+      "specs": {
+        "Ply": [
+          "3 ply",
+          "5 ply",
+          "7 ply"
+        ],
+        "Box Size": [
+          "Small",
+          "Medium",
+          "Large"
+        ]
+      },
+      "purpose": {
+        "hi": "shipping aur packaging ke kaam aata hai",
+        "en": "used for shipping and packaging"
+      },
+      "related": [
+        "Bubble Wrap Roll",
+        "Packaging Tape"
+      ]
+    },
+    "Bubble Wrap Roll": {
+      "mcat": "Bubble Wrap",
+      "units": [
+        "Roll",
+        "Kg"
+      ],
+      "specs": {
+        "Width": [
+          "0.5 meter",
+          "1 meter",
+          "1.5 meter"
+        ],
+        "Thickness": [
+          "40 micron",
+          "70 micron"
+        ]
+      },
+      "purpose": {
+        "hi": "packing mein saamaan ko toot-phoot se bachata hai",
+        "en": "used to protect goods during packing"
+      },
+      "related": [
+        "Packaging Tape",
+        "Corrugated Box"
+      ]
+    },
+    "Packaging Tape": {
+      "mcat": "BOPP Tapes",
+      "units": [
+        "Roll",
+        "Box"
+      ],
+      "specs": {
+        "Width": [
+          "2 inch",
+          "3 inch"
+        ]
+      },
+      "purpose": {
+        "hi": "carton seal karne ke kaam aata hai",
+        "en": "used to seal cartons"
+      },
+      "related": [
+        "Corrugated Box",
+        "Bubble Wrap Roll"
+      ]
+    },
+    "Solvent Cement": {
+      "mcat": "Solvent Cement",
+      "units": [
+        "Piece",
+        "Litre"
+      ],
+      "specs": {
+        "Pack Size": [
+          "250 ml",
+          "500 ml",
+          "1 litre"
+        ],
+        "Pipe Type": [
+          "uPVC",
+          "CPVC"
+        ]
+      },
+      "purpose": {
+        "hi": "PVC aur CPVC pipe jodne ke kaam aata hai",
+        "en": "used to bond PVC and CPVC pipe joints"
+      },
+      "related": [
+        "Pipe Fittings",
+        "PVC Pipe"
+      ]
+    }
+  },
+  "aliases": {
+    "pvc pipe": "PVC Pipe",
+    "pvc": "PVC Pipe",
+    "पीवीसी": "PVC Pipe",
+    "cpvc": "CPVC Pipe",
+    "fitting": "Pipe Fittings",
+    "elbow": "Pipe Fittings",
+    "water tank": "Water Storage Tank",
+    "tank": "Water Storage Tank",
+    "टंकी": "Water Storage Tank",
+    "ro plant": "Industrial RO Plant",
+    "ro": "Industrial RO Plant",
+    "water softener": "Water Softener",
+    "corrugated": "Corrugated Box",
+    "carton": "Corrugated Box",
+    "box": "Corrugated Box",
+    "bubble wrap": "Bubble Wrap Roll",
+    "bubble": "Bubble Wrap Roll",
+    "tape": "Packaging Tape",
+    "solvent": "Solvent Cement"
+  },
+  "cities": {
+    "Indore": "Madhya Pradesh",
+    "Bhopal": "Madhya Pradesh",
+    "Hyderabad": "Telangana",
+    "Secunderabad": "Telangana",
+    "Ahmedabad": "Gujarat",
+    "Surat": "Gujarat",
+    "Vadodara": "Gujarat",
+    "Rajkot": "Gujarat",
+    "Pune": "Maharashtra",
+    "Mumbai": "Maharashtra",
+    "Nagpur": "Maharashtra",
+    "Nashik": "Maharashtra",
+    "Delhi": "Delhi",
+    "Noida": "Uttar Pradesh",
+    "Lucknow": "Uttar Pradesh",
+    "Kanpur": "Uttar Pradesh",
+    "Jaipur": "Rajasthan",
+    "Kolkata": "West Bengal",
+    "Chennai": "Tamil Nadu",
+    "Bengaluru": "Karnataka",
+    "Bangalore": "Karnataka",
+    "Ludhiana": "Punjab",
+    "Chandigarh": "Chandigarh",
+    "Patna": "Bihar",
+    "Vijayawada": "Andhra Pradesh",
+    "Visakhapatnam": "Andhra Pradesh",
+    "Coimbatore": "Tamil Nadu",
+    "Gurgaon": "Haryana"
+  },
+  "city_aliases": {
+    "इंदौर": "Indore",
+    "भोपाल": "Bhopal",
+    "हैदराबाद": "Hyderabad",
+    "अहमदाबाद": "Ahmedabad",
+    "सूरत": "Surat",
+    "पुणे": "Pune",
+    "मुंबई": "Mumbai",
+    "दिल्ली": "Delhi",
+    "नोएडा": "Noida",
+    "लखनऊ": "Lucknow",
+    "जयपुर": "Jaipur",
+    "कोलकाता": "Kolkata",
+    "चेन्नई": "Chennai",
+    "बेंगलुरु": "Bengaluru",
+    "नागपुर": "Nagpur",
+    "नासिक": "Nashik",
+    "bombay": "Mumbai",
+    "gurugram": "Gurgaon",
+    "vizag": "Visakhapatnam"
+  }
+}

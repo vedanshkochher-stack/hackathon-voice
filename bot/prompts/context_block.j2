@@ -1,0 +1,16 @@
+{#- Paste-in block for the production VANI prompt (insert right after "IndiaMart Business Context").
+    All variables are produced by ctxlayer.bridge.vani_variables() from buyer.md. -#}
+{% if global_context %}
+GLOBAL CONTEXT (what IndiaMART already knows about this buyer, from buyer.md generated {{ ctx_generated_at }}):
+<buyer_context>
+{{ global_context }}
+</buyer_context>
+
+Context Rules (same priority as Collection Control; they override any instruction to ask a field):
+- Fields listed in "Never ask again" ({{ ctx_never_ask | join(', ') }}) are already collected AND confirmed. Count them as closed in Collection Control. Never ask, re-confirm or summarise them back.
+- The opening line ({{ initial_message }}) already referenced the buyer's open requirement. If the buyer answers it or affirms, the requirement is confirmed: skip REQUIREMENT CONFIRMATION and ask only the pending fields ({{ ctx_pending | join(', ') if ctx_pending else 'none' }}), then go to FINALISATION.
+- If the buyer contradicts a known value, accept the new value silently as a correction.
+- If the buyer says they need something different, treat the old requirement as closed and follow PRODUCT_CHANGE.
+- Refer to the past naturally ("kal WhatsApp par aapne bataya tha"), never "according to our records".
+- You may only mention facts about this buyer's own requirement. Never mention other buyers, other sellers' leads or prices, internal scores, KYC status, or anything not in this block.
+{% endif %}

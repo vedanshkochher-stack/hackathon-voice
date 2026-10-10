@@ -1,0 +1,94 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Memory Across Channels</title><style>
+:root{--ink:#0b0b0b;--ink2:#52514e;--muted:#7a7973;--line:#e2e1dc;--bg:#fcfcfb;--panel:#f3f2ee;--accent:#2a78d6;--good:#0f7a3d;--wa:#075e54;--voice:#1f2a44}
+*{box-sizing:border-box}body{margin:0;background:#e9e8e3;font-family:"Segoe UI",system-ui,sans-serif;color:var(--ink)}
+.slide{width:1920px;height:1080px;background:var(--bg);padding:44px 56px 36px;display:grid;grid-template-rows:auto 1fr auto;gap:22px}
+h1{margin:0;font-size:42px;letter-spacing:-.02em} .sub{color:var(--ink2);font-size:21px;margin-top:6px}
+.tag{font-size:15px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
+.cols{display:grid;grid-template-columns:1fr 1fr 1.08fr;gap:22px;min-height:0}
+.panel{background:var(--panel);border-radius:14px;padding:16px 18px;min-height:0;overflow:hidden;display:flex;flex-direction:column}
+.panel h2{margin:0 0 10px;font-size:19px;display:flex;justify-content:space-between;align-items:baseline}
+.panel h2 small{font-weight:400;color:var(--ink2);font-size:14px}
+pre{margin:0;font:14.2px/1.45 "Cascadia Mono",Consolas,monospace;white-space:pre-wrap;word-break:break-word;color:var(--ink)}
+.fm{color:var(--ink2)} .k{color:var(--accent);font-weight:600} .h{font-weight:700} .q{color:var(--good)}
+.flow{display:flex;flex-direction:column;gap:10px;font-size:16px}
+.row{display:flex;gap:8px;align-items:stretch}
+.box{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 13px;flex:1}
+.box b{display:block;font-size:17px;margin-bottom:3px} .box span{color:var(--ink2);font-size:15px;line-height:1.4;display:block}
+.arrow{text-align:center;color:var(--muted);font-size:14.5px;line-height:1.25}
+.box.key{border-color:var(--accent);box-shadow:0 0 0 2px #2a78d622}
+.box.voice{border-left:5px solid var(--voice)} .box.wa{border-left:5px solid var(--wa)}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.kpi{background:var(--panel);border-radius:12px;padding:12px 16px}
+.kpi .v{font-size:31px;font-weight:700;letter-spacing:-.02em} .kpi .v small{font-size:17px;color:var(--ink2);font-weight:600}
+.kpi .l{font-size:14px;color:var(--ink2)}
+.note{font-size:12.5px;color:var(--muted);margin-top:auto;padding-top:6px}
+</style></head><body><div class="slide">
+<div><div class="tag">Voice AI Hackathon 2.0 · Problem Statement 02 · Global Context · all data shown is synthetic</div>
+<h1>Memory Across Channels: the bot already knows the buyer before it speaks</h1>
+<div class="sub">Every activity → event keyed by GLID → a 2 KB <b>buyer.md / seller.md</b>, rewritten in ~41 ms → VANI opens with it and asks only what is missing, on voice and WhatsApp.</div></div>
+<div class="cols">
+ <div class="panel"><h2>Sample buyer.md <small>Ramesh · GLID 50112001 · 2457 B</small></h2><pre><span class="fm">---</span>
+<span class="k">schema</span>:<span class="fm"> imctx.buyer/v1</span>
+<span class="k">glid</span>:<span class="fm"> &#x27;50112001&#x27;</span>
+<span class="k">known</span>:<span class="fm"> {name: Ramesh, city: Indore, state: Madhya Pradesh, language: hi}</span>
+<span class="k">open_thread</span>:<span class="fm"></span>
+<span class="k">  product</span>:<span class="fm"> PVC Pipe</span>
+<span class="k">  ref</span>:<span class="fm"> ENQ-731204</span>
+<span class="k">  status</span>:<span class="fm"> in_progress</span>
+<span class="k">  last_channel</span>:<span class="fm"> whatsapp</span>
+<span class="k">  last_at</span>:<span class="fm"> 2026-10-08T15:42+05:30</span>
+<span class="k">  captured</span>:<span class="fm"> {quantity: 500 Piece, Size: 4 inch}</span>
+<span class="k">  pending</span>:<span class="fm"> [Pressure Rating]</span>
+<span class="k">  notes</span>:<span class="fm"> [Price asked]</span>
+<span class="k">never_ask</span>:<span class="fm"> [name, city, state, product, quantity, Size]</span>
+<span class="fm">---</span>
+<span class="h"># Buyer 50112001 · Ramesh · Indore, Madhya Pradesh</span>
+<span class="q">&gt; Hot buyer, mid-way on PVC Pipe (WhatsApp, 08 Oct): qty, Size given; Pressure Rating pending. Speaks Hindi.</span>
+<span class="h">## Enquiries</span>
+- 07 Oct · PVC Pipe · 500 Piece · 4 inch · in progress (ENQ-731204)
+- 12 Sep · Water Storage Tank · 2 Piece · 1000 L · closed: purchased (ENQ-701877)
+<span class="h">## Conversations</span>
+- 08 Oct WhatsApp (IM WhatsApp) · PVC Pipe · Gave quantity and size; asked price (told the seller will quote); went quiet before pressure rating. Pending: Pressure Rating.
+<span class="h">## Next best action</span>
+- Resume PVC Pipe: ask only Pressure Rating; then offer a live seller.
+- Never ask again: name, city, state, product, qty, Size.</pre>
+   <div class="note">Excerpt. YAML = machine contract · Markdown = LLM/human view.</div></div>
+ <div class="panel"><h2>Sample seller.md <small>Shree Polymers · 70221001 · 2769 B</small></h2><pre><span class="fm">---</span>
+<span class="k">schema</span>:<span class="fm"> imctx.seller/v1</span>
+<span class="k">glid</span>:<span class="fm"> &#x27;70221001&#x27;</span>
+<span class="k">known</span>:<span class="fm"> {company: Shree Polymers, contact: Sunil, city: Pune, state: Maharashtra, language: hi}</span>
+<span class="k">preferences</span>:<span class="fm"> {pref_min_qty: 100 Piece, pref_regions: &#x27;Maharashtra, Madhya Pradesh, Gujarat&#x27;}</span>
+<span class="k">open_items</span>:<span class="fm"></span>
+<span class="k">- {kind</span>:<span class="fm"> lead_unactioned, ref: L-731204, product: PVC Pipe, qty: 500 Piece, spec: 4 inch, buyer_city: Indore, at: &#x27;2026-10-08T16:42+05:30&#x27;, missed_call: true}</span>
+<span class="k">never_ask</span>:<span class="fm"> [contact, pref_min_qty, pref_regions]</span>
+<span class="fm">---</span>
+<span class="h"># Seller 70221001 · Shree Polymers · Pune, Maharashtra</span>
+<span class="q">&gt; Contact Sunil (Hindi). 2 fresh leads not actioned; top: Indore PVC Pipe 500 Piece + missed call. Responds to 43% of leads (30d).</span>
+<span class="h">## Leads received</span>
+- 08 Oct · PVC Pipe · 500 Piece · 4 inch · Indore, MP · BL purchase · NOT ACTIONED · buyer also called (missed) (L-731204)
+- 06 Oct · PVC Pipe · 40 Piece · Lucknow, UP · Enquiry · NOT ACTIONED · outside prefs (L-729900)
+<span class="h">## Responses &amp; outcomes</span>
+Responded 3/7 (43%) · avg first response 16.0h · won 1 · quoted 1 · lost 0 · not reachable 1
+<span class="h">## Next best action</span>
+- Ask if they reached the Indore buyer for PVC Pipe (L-731204); offer the details on WhatsApp.
+- Ask if they reached the Surat buyer for CPVC Pipe (L-728812); offer the details on WhatsApp.</pre>
+   <div class="note">No buyer name/phone ever reaches a seller file: leads carry product, qty, specs, city only.</div></div>
+ <div class="panel"><h2>Workflow <small>hybrid refresh · deterministic build</small></h2><div class="flow">
+  <div class="box"><b>1 · Data sources (adapters → events)</b><span>Enquiry/BL API · Lead/BL purchase · PNS calls (1 row → 2 files) · search logs · KYC · profile · VANI + WhatsApp bot turns · app engagement</span></div>
+  <div class="arrow">↓ privacy whitelist: phone, email, GSTIN, buyer names dropped before storage</div>
+  <div class="box key"><b>2 · Event store keyed by GLID → builder → renderer</b><span>Lookbacks: enquiries 90d · searches 30d · sellers 60d · conversations 30d (resume 14d) · leads 30d · missed calls 7d. Trust › recency conflict rule. No LLM: deterministic, ≤2.8 KB.</span></div>
+  <div class="arrow">↓ refresh: event-driven (15 ms debounce) + read-through watermark check + 5-min sweep</div>
+  <div class="row"><div class="box voice"><b>3a · VANI voice</b><span>file → existing prompt vars (buyer_name, city, qty, specs, initial_message) + 1 context include; known sections vanish</span></div>
+   <div class="box wa"><b>3b · WhatsApp / chat</b><span>same engine, same events per captured slot → a dropped call resumes on WhatsApp</span></div></div>
+  <div class="box"><b>LLM: Sarvam sarvam-105b-conversations (~230 ms)</b><span>phrases replies + NLU fallback only; policy (VANI Collection Control) decides what to ask. Guards: no re-ask, on-target, no echo, cross-party leak. STT saaras:v4 · TTS bulbul:v4-flash</span></div>
+  <div class="box"><b>4 · Same files, no rework</b><span>Exec call-prep card · sales dashboard · WhatsApp campaign planner (respects do-not-disturb)</span></div>
+ </div></div>
+</div>
+<div class="kpis">
+ <div class="kpi"><div class="v">41<small> / 77 ms</small></div><div class="l">event → file, p50 / p95 (341 events)</div></div>
+ <div class="kpi"><div class="v">0<small> stale</small></div><div class="l">bot reads right after an event (50 checks)</div></div>
+ <div class="kpi"><div class="v">1.6–2.8<small> KB</small></div><div class="l">per file, ≈399–692 tokens (<4% of VANI prompt)</div></div>
+ <div class="kpi"><div class="v">18 → 0</div><div class="l">re-asks of known facts, cold vs context</div></div>
+ <div class="kpi"><div class="v">−64%</div><div class="l">turns to goal (36 → 13); goals 3/6 → 6/6</div></div>
+ <div class="kpi"><div class="v">6/6</div><div class="l">personalised openings; clean generic one on cold start</div></div>
+</div></div></body></html>

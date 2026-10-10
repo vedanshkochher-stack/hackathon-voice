@@ -1,0 +1,69 @@
+{
+ "_label": "SYNTHETIC DATA - created for the hackathon to fill gaps until organiser sample GLIDs are shared. No real people.",
+ "personas": [
+  {
+   "glid": "50112001",
+   "roles": [
+    "buyer"
+   ],
+   "label": "Ramesh (Indore)",
+   "story": "Mid-way on a PVC pipe requirement: voice call dropped 2 days ago, gave qty + size on WhatsApp yesterday. Only pressure rating pending."
+  },
+  {
+   "glid": "50112002",
+   "roles": [
+    "buyer"
+   ],
+   "label": "Lakshmi (Hyderabad)",
+   "story": "Voice call about a 2000 LPH RO plant dropped 3 days ago. Profile city conflicts with what she said on the call."
+  },
+  {
+   "glid": "50112003",
+   "roles": [
+    "buyer"
+   ],
+   "label": "Arjun (Ahmedabad)",
+   "story": "Repeat buyer (boxes, closed last month). Searching bubble wrap in the last 2 hours, no enquiry yet. KYC source is down."
+  },
+  {
+   "glid": "50119999",
+   "roles": [
+    "buyer"
+   ],
+   "label": "New buyer (cold start)",
+   "story": "No history at all. Must get a clean generic opening."
+  },
+  {
+   "glid": "70221001",
+   "roles": [
+    "seller"
+   ],
+   "label": "Shree Polymers (Pune)",
+   "story": "Fresh Indore PVC lead + a missed buyer call, not yet actioned. Set lead preferences on WhatsApp 2 days ago."
+  },
+  {
+   "glid": "70221002",
+   "roles": [
+    "seller"
+   ],
+   "label": "Om Packaging (Ahmedabad)",
+   "story": "Responsive seller, new bubble wrap lead 3h ago. Gave region preference on a call, min-qty still unknown."
+  },
+  {
+   "glid": "70221003",
+   "roles": [
+    "seller"
+   ],
+   "label": "AquaPure Systems (Hyderabad)",
+   "story": "Low engagement, GST pending, asked for a callback after festive rush. Missed a Hyderabad RO plant buyer."
+  },
+  {
+   "glid": "70221004",
+   "roles": [
+    "seller"
+   ],
+   "label": "Patel Pipes (Bhopal)",
+   "story": "Opted in to live call transfers. Receives the live transfer when a PVC buyer agrees to connect, so its seller.md updates from a buyer's call."
+  }
+ ]
+}

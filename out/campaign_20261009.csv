@@ -1,0 +1,6 @@
+glid,role,segment,message,why
+50112001,buyer,resume_nudge,"Namaste Ramesh ji, aapki Pipe Fittings requirement bas ek step door hai: Type bata dijiye, hum turant best seller se jod denge.","open thread, pending ['Type']"
+50112002,buyer,resume_nudge,"Hi Lakshmi, your Industrial RO Plant requirement is one step away: tell us the body material and we'll connect you to the best seller.","open thread, pending ['Body Material']"
+50112003,buyer,category_interest,"Namaste Arjun ji, Ahmedabad ke verified Bubble Wrap Roll sellers ke rates ek jagah dekhiye.",recent interest in Bubble Wrap (search not quoted in message)
+70221001,seller,unactioned_lead,"Namaste Sunil ji, Indore se 500 Piece PVC Pipe ki lead abhi active hai. Lead Manager mein L-731204 kholkar buyer ko call kijiye.","fresh lead, no response yet"
+70221002,seller,unactioned_lead,"Namaste Hetal ji, Ahmedabad se 200 Roll Bubble Wrap Roll ki lead abhi active hai. Lead Manager mein L-731800 kholkar buyer ko call kijiye.","fresh lead, no response yet"

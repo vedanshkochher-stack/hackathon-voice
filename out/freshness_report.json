@@ -1,0 +1,21 @@
+{
+  "events_fired": 341,
+  "duration_s": 12.2,
+  "rate_per_s": 25.0,
+  "debounce_ms": 15,
+  "ingest_to_file_ms": {
+    "p50_ms": 41.2,
+    "p95_ms": 77.1,
+    "p99_ms": 99.8,
+    "max_ms": 116.0
+  },
+  "activity_to_file_ms": {
+    "p50": 42.0,
+    "p95": 78.1
+  },
+  "measured_events": 341,
+  "read_through_checks": 50,
+  "stale_reads": 0,
+  "avg_full_rebuild_ms_per_file": 34.99,
+  "generated_at": "2026-10-09T14:47:50.142+05:30"
+}

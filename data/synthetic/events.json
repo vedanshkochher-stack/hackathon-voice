@@ -1,0 +1,1620 @@
+{
+ "_label": "SYNTHETIC DATA. 'ago' is resolved against the current clock at load time so 'yesterday' stays yesterday whenever the demo runs. String values '@rel:+6d' become absolute dates. Fields such as mobile, email, address, gstin are deliberately present to prove the privacy filter drops them.",
+ "events": [
+  {
+   "id": "b1-01",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "profile.update",
+   "ago": "200d",
+   "source": "user_profile_api",
+   "payload": {
+    "name": "Ramesh Patidar",
+    "city": "Indore",
+    "state": "Madhya Pradesh",
+    "language": "hi",
+    "mobile": "+91 98260 11223",
+    "email": "ramesh.patidar@gmail.com",
+    "address": "14 Vijay Nagar, Indore 452010"
+   }
+  },
+  {
+   "id": "b1-02",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "kyc.update",
+   "ago": "120d",
+   "source": "kyc_api",
+   "payload": {
+    "mobile_verified": true,
+    "email_verified": false,
+    "gst_verified": true,
+    "gstin": "23AAPFP1234K1Z5"
+   }
+  },
+  {
+   "id": "b1-03",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "enquiry.created",
+   "ago": "27d",
+   "source": "enquiry_api",
+   "payload": {
+    "enq_id": "ENQ-701877",
+    "product": "Water Storage Tank",
+    "quantity": 2,
+    "unit": "Piece",
+    "specs": {
+     "Capacity": "1000 L"
+    },
+    "city": "Indore",
+    "channel": "web"
+   }
+  },
+  {
+   "id": "b1-04",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "enquiry.status",
+   "ago": "20d",
+   "source": "enquiry_api",
+   "payload": {
+    "enq_id": "ENQ-701877",
+    "status": "closed",
+    "note": "purchased"
+   }
+  },
+  {
+   "id": "b1-05",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "pns.call",
+   "ago": "6d",
+   "source": "pns_api",
+   "counterparty": "70229001",
+   "payload": {
+    "seller_glid": "70229001",
+    "seller_name": "Jain Pipe House",
+    "seller_city": "Indore",
+    "product": "Pipe Fittings",
+    "answered": true,
+    "duration_s": 190
+   }
+  },
+  {
+   "id": "b1-06",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "search",
+   "ago": "3d",
+   "source": "search_logs",
+   "payload": {
+    "query": "pvc pipe 4 inch",
+    "mcat": "PVC Pipes",
+    "platform": "app"
+   }
+  },
+  {
+   "id": "b1-07",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "search",
+   "ago": "2d6h",
+   "source": "search_logs",
+   "payload": {
+    "query": "pvc pipe price list",
+    "mcat": "PVC Pipes",
+    "platform": "web"
+   }
+  },
+  {
+   "id": "b1-08",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "search",
+   "ago": "2d5h",
+   "source": "search_logs",
+   "payload": {
+    "query": "upvc pipe fittings",
+    "mcat": "Pipe Fittings",
+    "platform": "app"
+   }
+  },
+  {
+   "id": "b1-09",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "search",
+   "ago": "1d3h",
+   "source": "search_logs",
+   "payload": {
+    "query": "solvent cement",
+    "mcat": "Solvent Cement",
+    "platform": "web"
+   }
+  },
+  {
+   "id": "b1-10",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "search",
+   "ago": "5h",
+   "source": "search_logs",
+   "payload": {
+    "query": "pvc pipe 6 kg",
+    "mcat": "PVC Pipes",
+    "platform": "app"
+   }
+  },
+  {
+   "id": "b1-11",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "pns.call",
+   "ago": "2d4h",
+   "source": "pns_api",
+   "counterparty": "70221001",
+   "payload": {
+    "seller_glid": "70221001",
+    "seller_name": "Shree Polymers",
+    "seller_city": "Pune",
+    "product": "PVC Pipe",
+    "answered": false,
+    "duration_s": 0
+   }
+  },
+  {
+   "id": "b1-12",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "conversation.ended",
+   "ago": "2d4h",
+   "source": "vani_voice",
+   "payload": {
+    "session_id": "V-80011",
+    "channel": "voice",
+    "bot": "VANI",
+    "product": "PVC Pipe",
+    "captured": {},
+    "pending": [
+     "quantity",
+     "Size",
+     "Pressure Rating"
+    ],
+    "notes": [],
+    "outcome": "dropped",
+    "summary": "Seller missed the call; buyer confirmed the PVC Pipe requirement; call dropped before quantity.",
+    "lang": "hi"
+   }
+  },
+  {
+   "id": "b1-13",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "enquiry.created",
+   "ago": "2d4h",
+   "source": "vani_voice",
+   "payload": {
+    "enq_id": "ENQ-731204",
+    "product": "PVC Pipe",
+    "quantity": null,
+    "unit": null,
+    "specs": {},
+    "city": "Indore",
+    "channel": "voice"
+   }
+  },
+  {
+   "id": "b1-14",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "conversation.ended",
+   "ago": "1d2h",
+   "source": "whatsapp_bot",
+   "payload": {
+    "session_id": "W-90114",
+    "channel": "whatsapp",
+    "bot": "IM WhatsApp",
+    "product": "PVC Pipe",
+    "captured": {
+     "quantity": "500 Piece",
+     "Size": "4 inch"
+    },
+    "pending": [
+     "Pressure Rating"
+    ],
+    "notes": [
+     "Price asked"
+    ],
+    "outcome": "in_progress",
+    "summary": "Gave quantity and size; asked price (told the seller will quote); went quiet before pressure rating.",
+    "lang": "hi"
+   }
+  },
+  {
+   "id": "b1-15",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "enquiry.update",
+   "ago": "1d2h",
+   "source": "whatsapp_bot",
+   "payload": {
+    "enq_id": "ENQ-731204",
+    "quantity": 500,
+    "unit": "Piece",
+    "specs": {
+     "Size": "4 inch"
+    }
+   }
+  },
+  {
+   "id": "b1-16",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "engagement",
+   "ago": "25d",
+   "source": "engagement_api",
+   "payload": {
+    "kind": "app_session",
+    "count": 2
+   }
+  },
+  {
+   "id": "b1-17",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "engagement",
+   "ago": "12d",
+   "source": "engagement_api",
+   "payload": {
+    "kind": "app_session",
+    "count": 2
+   }
+  },
+  {
+   "id": "b1-18",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "engagement",
+   "ago": "3d",
+   "source": "engagement_api",
+   "payload": {
+    "kind": "app_session",
+    "count": 3
+   }
+  },
+  {
+   "id": "b1-19",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "engagement",
+   "ago": "1d2h",
+   "source": "engagement_api",
+   "payload": {
+    "kind": "wa_read",
+    "count": 2
+   }
+  },
+  {
+   "id": "b1-20",
+   "glid": "50112001",
+   "role": "buyer",
+   "type": "engagement",
+   "ago": "5h",
+   "source": "engagement_api",
+   "payload": {
+    "kind": "app_session",
+    "count": 1
+   }
+  },
+  {
+   "id": "b2-01",
+   "glid": "50112002",
+   "role": "buyer",
+   "type": "profile.update",
+   "ago": "300d",
+   "source": "user_profile_api",
+   "payload": {
+    "name": "Lakshmi Reddy",
+    "city": "Secunderabad",
+    "state": "Telangana",
+    "language": "en",
+    "mobile": "+91 90000 22334"
+   }
+  },
+  {
+   "id": "b2-02",
+   "glid": "50112002",
+   "role": "buyer",
+   "type": "kyc.update",
+   "ago": "280d",
+   "source": "kyc_api",
+   "payload": {
+    "mobile_verified": true,
+    "email_verified": false,
+    "gst_verified": false
+   }
+  },
+  {
+   "id": "b2-03",
+   "glid": "50112002",
+   "role": "buyer",
+   "type": "search",
+   "ago": "9d",
+   "source": "search_logs",
+   "payload": {
+    "query": "water softener",
+    "mcat": "Water Softeners",
+    "platform": "web"
+   }
+  },
+  {
+   "id": "b2-04",
+   "glid": "50112002",
+   "role": "buyer",
+   "type": "search",
+   "ago": "4d1h",
+   "source": "search_logs",
+   "payload": {
+    "query": "industrial ro plant 2000 lph",
+    "mcat": "Industrial RO Plants",
+    "platform": "web"
+   }
+  },
+  {
+   "id": "b2-05",
+   "glid": "50112002",
+   "role": "buyer",
+   "type": "search",
+   "ago": "4d",
+   "source": "search_logs",
+   "payload": {
+    "query": "ro plant for packaged drinking water",
+    "mcat": "Industrial RO Plants",
+    "platform": "web"
+   }
+  },
+  {
+   "id": "b2-06",
+   "glid": "50112002",
+   "role": "buyer",
+   "type": "pns.call",
+   "ago": "3d2h",
+   "source": "pns_api",
+   "counterparty": "70221003",
+   "payload": {
+    "seller_glid": "70221003",
+    "seller_name": "AquaPure Systems",
+    "seller_city": "Hyderabad",
+    "product": "Industrial RO Plant",
+    "answered": false,
+    "duration_s": 0
+   }
+  },
+  {
+   "id": "b2-07",
+   "glid": "50112002",
+   "role": "buyer",
+   "type": "conversation.ended",
+   "ago": "3d2h",
+   "source": "vani_voice",
+   "payload": {
+    "session_id": "V-80342",
+    "channel": "voice",
+    "bot": "VANI",
+    "product": "Industrial RO Plant",
+    "captured": {
+     "quantity": "1 Unit",
+     "Capacity": "2000 LPH",
+     "city": "Hyderabad"
+    },
+    "pending": [
+     "Body Material"
+    ],
+    "notes": [
+     "Use-case: packaged drinking water unit"
+    ],
+    "outcome": "dropped",
+    "summary": "Confirmed one 2000 LPH RO plant for a packaged drinking water unit; call dropped while choosing body material.",
+    "lang": "en"
+   }
+  },
+  {
+   "id": "b2-08",
+   "glid": "50112002",
+   "role": "buyer",
+   "type": "enquiry.created",
+   "ago": "3d2h",
+   "source": "vani_voice",
+   "payload": {
+    "enq_id": "ENQ-731990",
+    "product": "Industrial RO Plant",
+    "quantity": 1,
+    "unit": "Unit",
+    "specs": {
+     "Capacity": "2000 LPH"
+    },
+    "city": "Hyderabad",
+    "channel": "voice"
+   }
+  },
+  {
+   "id": "b2-09",
+   "glid": "50112002",
+   "role": "buyer",
+   "type": "engagement",
+   "ago": "8d",
+   "source": "engagement_api",
+   "payload": {
+    "kind": "app_session",
+    "count": 1
+   }
+  },
+  {
+   "id": "b2-10",
+   "glid": "50112002",
+   "role": "buyer",
+   "type": "engagement",
+   "ago": "6d",
+   "source": "engagement_api",
+   "payload": {
+    "kind": "email_open",
+    "count": 1
+   }
+  },
+  {
+   "id": "b2-11",
+   "glid": "50112002",
+   "role": "buyer",
+   "type": "engagement",
+   "ago": "4d",
+   "source": "engagement_api",
+   "payload": {
+    "kind": "app_session",
+    "count": 2
+   }
+  },
+  {
+   "id": "b3-01",
+   "glid": "50112003",
+   "role": "buyer",
+   "type": "profile.update",
+   "ago": "400d",
+   "source": "user_profile_api",
+   "payload": {
+    "name": "Arjun Mehta",
+    "city": "Ahmedabad",
+    "state": "Gujarat",
+    "language": "hi"
+   }
+  },
+  {
+   "id": "b3-02",
+   "glid": "50112003",
+   "role": "buyer",
+   "type": "enquiry.created",
+   "ago": "40d",
+   "source": "enquiry_api",
+   "payload": {
+    "enq_id": "ENQ-690112",
+    "product": "Corrugated Box",
+    "quantity": 5000,
+    "unit": "Piece",
+    "specs": {
+     "Ply": "5 ply"
+    },
+    "city": "Ahmedabad",
+    "channel": "web"
+   }
+  },
+  {
+   "id": "b3-03",
+   "glid": "50112003",
+   "role": "buyer",
+   "type": "pns.call",
+   "ago": "40d",
+   "source": "pns_api",
+   "counterparty": "70221002",
+   "payload": {
+    "seller_glid": "70221002",
+    "seller_name": "Om Packaging",
+    "seller_city": "Ahmedabad",
+    "product": "Corrugated Box",
+    "answered": true,
+    "duration_s": 420
+   }
+  },
+  {
+   "id": "b3-04",
+   "glid": "50112003",
+   "role": "buyer",
+   "type": "enquiry.status",
+   "ago": "24d",
+   "source": "enquiry_api",
+   "payload": {
+    "enq_id": "ENQ-690112",
+    "status": "closed",
+    "note": "purchased from Om Packaging"
+   }
+  },
+  {
+   "id": "b3-05",
+   "glid": "50112003",
+   "role": "buyer",
+   "type": "conversation.ended",
+   "ago": "22d",
+   "source": "whatsapp_bot",
+   "payload": {
+    "session_id": "W-88120",
+    "channel": "whatsapp",
+    "bot": "IM WhatsApp",
+    "product": "Corrugated Box",
+    "captured": {},
+    "pending": [],
+    "notes": [
+     "Complaint: delivery 4 days late (resolved)"
+    ],
+    "outcome": "complaint_resolved",
+    "summary": "Reported a 4-day delivery delay on boxes; seller resolved it; buyer satisfied.",
+    "lang": "hi"
+   }
+  },
+  {
+   "id": "b3-06",
+   "glid": "50112003",
+   "role": "buyer",
+   "type": "engagement",
+   "ago": "15d",
+   "source": "engagement_api",
+   "payload": {
+    "kind": "app_session",
+    "count": 1
+   }
+  },
+  {
+   "id": "b3-07",
+   "glid": "50112003",
+   "role": "buyer",
+   "type": "engagement",
+   "ago": "10d",
+   "source": "engagement_api",
+   "payload": {
+    "kind": "wa_click",
+    "count": 1
+   }
+  },
+  {
+   "id": "b3-08",
+   "glid": "50112003",
+   "role": "buyer",
+   "type": "search",
+   "ago": "2h",
+   "source": "search_logs",
+   "payload": {
+    "query": "bubble wrap roll",
+    "mcat": "Bubble Wrap",
+    "platform": "app"
+   }
+  },
+  {
+   "id": "b3-09",
+   "glid": "50112003",
+   "role": "buyer",
+   "type": "search",
+   "ago": "1h40m",
+   "source": "search_logs",
+   "payload": {
+    "query": "air bubble packing sheet",
+    "mcat": "Bubble Wrap",
+    "platform": "app"
+   }
+  },
+  {
+   "id": "b3-10",
+   "glid": "50112003",
+   "role": "buyer",
+   "type": "search",
+   "ago": "1h10m",
+   "source": "search_logs",
+   "payload": {
+    "query": "bubble wrap 1 meter",
+    "mcat": "Bubble Wrap",
+    "platform": "app"
+   }
+  },
+  {
+   "id": "b3-11",
+   "glid": "50112003",
+   "role": "buyer",
+   "type": "engagement",
+   "ago": "2h",
+   "source": "engagement_api",
+   "payload": {
+    "kind": "app_session",
+    "count": 2
+   }
+  },
+  {
+   "id": "b3-12",
+   "glid": "50112003",
+   "role": "buyer",
+   "type": "source.status",
+   "ago": "30m",
+   "source": "kyc_api",
+   "payload": {
+    "source": "kyc",
+    "status": "unavailable"
+   }
+  },
+  {
+   "id": "s1-01",
+   "glid": "70221001",
+   "role": "seller",
+   "type": "profile.update",
+   "ago": "500d",
+   "source": "seller_profile_api",
+   "payload": {
+    "company": "Shree Polymers",
+    "contact_name": "Sunil Kulkarni",
+    "city": "Pune",
+    "state": "Maharashtra",
+    "language": "hi",
+    "mobile": "+91 98220 44556",
+    "email": "sales@shreepolymers.in"
+   }
+  },
+  {
+   "id": "s1-02",
+   "glid": "70221001",
+   "role": "seller",
+   "type": "catalog.update",
+   "ago": "30d",
+   "source": "catalog_api",
+   "payload": {
+    "products": [
+     "PVC Pipe",
+     "CPVC Pipe",
+     "Pipe Fittings"
+    ]
+   }
+  },
+  {
+   "id": "s1-03",
+   "glid": "70221001",
+   "role": "seller",
+   "type": "kyc.update",
+   "ago": "200d",
+   "source": "kyc_api",
+   "payload": {
+    "gst_verified": true,
+    "bank_verified": true,
+    "gstin": "27AAKCS9988M1Z2"
+   }
+  },
+  {
+   "id": "s1-04",
+   "glid": "70221001",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "12d",
+   "source": "lead_api",
+   "counterparty": "50118801",
+   "payload": {
+    "lead_id": "L-722310",
+    "product": "CPVC Pipe",
+    "quantity": 300,
+    "unit": "Meter",
+    "specs": {
+     "Size": "1 inch"
+    },
+    "buyer_city": "Nashik",
+    "buyer_state": "Maharashtra",
+    "via": "BL purchase",
+    "buyer_name": "Prakash Joshi",
+    "buyer_mobile": "+91 99220 10101"
+   }
+  },
+  {
+   "id": "s1-05",
+   "glid": "70221001",
+   "role": "seller",
+   "type": "lead.response",
+   "ago": "11d",
+   "source": "lead_api",
+   "payload": {
+    "lead_id": "L-722310",
+    "action": "called",
+    "outcome": "deal_won"
+   }
+  },
+  {
+   "id": "s1-06",
+   "glid": "70221001",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "9d",
+   "source": "lead_api",
+   "counterparty": "50118802",
+   "payload": {
+    "lead_id": "L-724455",
+    "product": "PVC Pipe",
+    "quantity": 80,
+    "unit": "Piece",
+    "specs": {
+     "Size": "2 inch"
+    },
+    "buyer_city": "Mumbai",
+    "buyer_state": "Maharashtra",
+    "via": "BL purchase"
+   }
+  },
+  {
+   "id": "s1-07",
+   "glid": "70221001",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "8d",
+   "source": "lead_api",
+   "counterparty": "50118803",
+   "payload": {
+    "lead_id": "L-726001",
+    "product": "Pipe Fittings",
+    "quantity": 500,
+    "unit": "Piece",
+    "specs": {},
+    "buyer_city": "Nagpur",
+    "buyer_state": "Maharashtra",
+    "via": "Enquiry"
+   }
+  },
+  {
+   "id": "s1-08",
+   "glid": "70221001",
+   "role": "seller",
+   "type": "lead.response",
+   "ago": "7d",
+   "source": "lead_api",
+   "payload": {
+    "lead_id": "L-726001",
+    "action": "whatsapp",
+    "outcome": "quoted"
+   }
+  },
+  {
+   "id": "s1-09",
+   "glid": "70221001",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "6d",
+   "source": "lead_api",
+   "counterparty": "50118804",
+   "payload": {
+    "lead_id": "L-727390",
+    "product": "PVC Pipe",
+    "quantity": 1200,
+    "unit": "Meter",
+    "specs": {
+     "Size": "6 inch"
+    },
+    "buyer_city": "Bhopal",
+    "buyer_state": "Madhya Pradesh",
+    "via": "BL purchase"
+   }
+  },
+  {
+   "id": "s1-10",
+   "glid": "70221001",
+   "role": "seller",
+   "type": "lead.response",
+   "ago": "6d",
+   "source": "lead_api",
+   "payload": {
+    "lead_id": "L-727390",
+    "action": "called",
+    "outcome": "not_reachable"
+   }
+  },
+  {
+   "id": "s1-11",
+   "glid": "70221001",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "4d",
+   "source": "lead_api",
+   "counterparty": "50118805",
+   "payload": {
+    "lead_id": "L-728812",
+    "product": "CPVC Pipe",
+    "quantity": 150,
+    "unit": "Meter",
+    "specs": {},
+    "buyer_city": "Surat",
+    "buyer_state": "Gujarat",
+    "via": "BL purchase"
+   }
+  },
+  {
+   "id": "s1-12",
+   "glid": "70221001",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "3d",
+   "source": "lead_api",
+   "counterparty": "50118806",
+   "payload": {
+    "lead_id": "L-729900",
+    "product": "PVC Pipe",
+    "quantity": 40,
+    "unit": "Piece",
+    "specs": {},
+    "buyer_city": "Lucknow",
+    "buyer_state": "Uttar Pradesh",
+    "via": "Enquiry"
+   }
+  },
+  {
+   "id": "s1-13",
+   "glid": "70221001",
+   "role": "seller",
+   "type": "pns.call",
+   "ago": "2d4h",
+   "source": "pns_api",
+   "counterparty": "50112001",
+   "payload": {
+    "buyer_city": "Indore",
+    "buyer_state": "Madhya Pradesh",
+    "product": "PVC Pipe",
+    "answered": false
+   }
+  },
+  {
+   "id": "s1-14",
+   "glid": "70221001",
+   "role": "seller",
+   "type": "conversation.ended",
+   "ago": "2d",
+   "source": "whatsapp_bot",
+   "payload": {
+    "session_id": "W-91002",
+    "channel": "whatsapp",
+    "bot": "Seller Assist",
+    "product": null,
+    "captured": {
+     "pref_min_qty": "100 Piece",
+     "pref_regions": "Maharashtra, Madhya Pradesh, Gujarat"
+    },
+    "pending": [],
+    "notes": [
+     "No retail enquiries"
+    ],
+    "outcome": "prefs_updated",
+    "summary": "Asked for leads of 100+ pieces only, from MH, MP and GJ; no retail enquiries.",
+    "lang": "hi"
+   }
+  },
+  {
+   "id": "s1-15",
+   "glid": "70221001",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "1d1h",
+   "source": "lead_api",
+   "counterparty": "50112001",
+   "payload": {
+    "lead_id": "L-731204",
+    "product": "PVC Pipe",
+    "quantity": 500,
+    "unit": "Piece",
+    "specs": {
+     "Size": "4 inch"
+    },
+    "buyer_city": "Indore",
+    "buyer_state": "Madhya Pradesh",
+    "via": "BL purchase",
+    "buyer_name": "Ramesh Patidar"
+   }
+  },
+  {
+   "id": "s1-16",
+   "glid": "70221001",
+   "role": "seller",
+   "type": "conversation.ended",
+   "ago": "10d",
+   "source": "vani_voice",
+   "payload": {
+    "session_id": "V-79001",
+    "channel": "voice",
+    "bot": "Seller Assist",
+    "product": "CPVC Pipe",
+    "captured": {
+     "lead_feedback": "L-722310 deal won"
+    },
+    "pending": [],
+    "notes": [],
+    "outcome": "feedback_given",
+    "summary": "Confirmed the Nashik CPVC lead converted; happy with lead quality.",
+    "lang": "hi"
+   }
+  },
+  {
+   "id": "s1-17",
+   "glid": "70221001",
+   "role": "seller",
+   "type": "engagement",
+   "ago": "6d",
+   "source": "engagement_api",
+   "payload": {
+    "kind": "lead_manager_open",
+    "count": 3
+   }
+  },
+  {
+   "id": "s1-18",
+   "glid": "70221001",
+   "role": "seller",
+   "type": "engagement",
+   "ago": "3d",
+   "source": "engagement_api",
+   "payload": {
+    "kind": "lead_manager_open",
+    "count": 2
+   }
+  },
+  {
+   "id": "s1-19",
+   "glid": "70221001",
+   "role": "seller",
+   "type": "engagement",
+   "ago": "4h",
+   "source": "engagement_api",
+   "payload": {
+    "kind": "lead_manager_open",
+    "count": 1
+   }
+  },
+  {
+   "id": "s2-01",
+   "glid": "70221002",
+   "role": "seller",
+   "type": "profile.update",
+   "ago": "700d",
+   "source": "seller_profile_api",
+   "payload": {
+    "company": "Om Packaging",
+    "contact_name": "Hetal Shah",
+    "city": "Ahmedabad",
+    "state": "Gujarat",
+    "language": "hi"
+   }
+  },
+  {
+   "id": "s2-02",
+   "glid": "70221002",
+   "role": "seller",
+   "type": "catalog.update",
+   "ago": "45d",
+   "source": "catalog_api",
+   "payload": {
+    "products": [
+     "Corrugated Box",
+     "Bubble Wrap Roll",
+     "Packaging Tape"
+    ]
+   }
+  },
+  {
+   "id": "s2-03",
+   "glid": "70221002",
+   "role": "seller",
+   "type": "kyc.update",
+   "ago": "300d",
+   "source": "kyc_api",
+   "payload": {
+    "gst_verified": true,
+    "bank_verified": true
+   }
+  },
+  {
+   "id": "s2-04",
+   "glid": "70221002",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "40d",
+   "source": "lead_api",
+   "counterparty": "50112003",
+   "payload": {
+    "lead_id": "L-690112",
+    "product": "Corrugated Box",
+    "quantity": 5000,
+    "unit": "Piece",
+    "specs": {
+     "Ply": "5 ply"
+    },
+    "buyer_city": "Ahmedabad",
+    "buyer_state": "Gujarat",
+    "via": "PNS call"
+   }
+  },
+  {
+   "id": "s2-05",
+   "glid": "70221002",
+   "role": "seller",
+   "type": "lead.response",
+   "ago": "38d",
+   "source": "lead_api",
+   "payload": {
+    "lead_id": "L-690112",
+    "action": "called",
+    "outcome": "deal_won"
+   }
+  },
+  {
+   "id": "s2-06",
+   "glid": "70221002",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "14d",
+   "source": "lead_api",
+   "counterparty": "50118811",
+   "payload": {
+    "lead_id": "L-725010",
+    "product": "Corrugated Box",
+    "quantity": 2000,
+    "unit": "Piece",
+    "specs": {
+     "Ply": "3 ply"
+    },
+    "buyer_city": "Surat",
+    "buyer_state": "Gujarat",
+    "via": "BL purchase"
+   }
+  },
+  {
+   "id": "s2-07",
+   "glid": "70221002",
+   "role": "seller",
+   "type": "lead.response",
+   "ago": "13d21h",
+   "source": "lead_api",
+   "payload": {
+    "lead_id": "L-725010",
+    "action": "called",
+    "outcome": "quoted"
+   }
+  },
+  {
+   "id": "s2-08",
+   "glid": "70221002",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "11d",
+   "source": "lead_api",
+   "counterparty": "50118812",
+   "payload": {
+    "lead_id": "L-726220",
+    "product": "Packaging Tape",
+    "quantity": 100,
+    "unit": "Box",
+    "specs": {},
+    "buyer_city": "Vadodara",
+    "buyer_state": "Gujarat",
+    "via": "Enquiry"
+   }
+  },
+  {
+   "id": "s2-09",
+   "glid": "70221002",
+   "role": "seller",
+   "type": "lead.response",
+   "ago": "10d20h",
+   "source": "lead_api",
+   "payload": {
+    "lead_id": "L-726220",
+    "action": "called",
+    "outcome": "deal_won"
+   }
+  },
+  {
+   "id": "s2-10",
+   "glid": "70221002",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "7d",
+   "source": "lead_api",
+   "counterparty": "50118813",
+   "payload": {
+    "lead_id": "L-727001",
+    "product": "Corrugated Box",
+    "quantity": 10000,
+    "unit": "Piece",
+    "specs": {
+     "Ply": "7 ply"
+    },
+    "buyer_city": "Rajkot",
+    "buyer_state": "Gujarat",
+    "via": "BL purchase"
+   }
+  },
+  {
+   "id": "s2-11",
+   "glid": "70221002",
+   "role": "seller",
+   "type": "lead.response",
+   "ago": "6d22h",
+   "source": "lead_api",
+   "payload": {
+    "lead_id": "L-727001",
+    "action": "called",
+    "outcome": "quoted"
+   }
+  },
+  {
+   "id": "s2-12",
+   "glid": "70221002",
+   "role": "seller",
+   "type": "conversation.ended",
+   "ago": "6d",
+   "source": "vani_voice",
+   "payload": {
+    "session_id": "V-80120",
+    "channel": "voice",
+    "bot": "Seller Assist",
+    "product": "Bubble Wrap Roll",
+    "captured": {
+     "pref_regions": "Gujarat, Maharashtra"
+    },
+    "pending": [
+     "pref_min_qty"
+    ],
+    "notes": [
+     "Wants more bubble wrap leads"
+    ],
+    "outcome": "prefs_partial",
+    "summary": "Wants more bubble wrap leads; prefers Gujarat and Maharashtra buyers; min order not discussed.",
+    "lang": "hi"
+   }
+  },
+  {
+   "id": "s2-13",
+   "glid": "70221002",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "5d",
+   "source": "lead_api",
+   "counterparty": "50118814",
+   "payload": {
+    "lead_id": "L-728100",
+    "product": "Bubble Wrap Roll",
+    "quantity": 50,
+    "unit": "Roll",
+    "specs": {},
+    "buyer_city": "Ahmedabad",
+    "buyer_state": "Gujarat",
+    "via": "Enquiry"
+   }
+  },
+  {
+   "id": "s2-14",
+   "glid": "70221002",
+   "role": "seller",
+   "type": "lead.response",
+   "ago": "4d23h",
+   "source": "lead_api",
+   "payload": {
+    "lead_id": "L-728100",
+    "action": "whatsapp",
+    "outcome": "connected"
+   }
+  },
+  {
+   "id": "s2-15",
+   "glid": "70221002",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "2d",
+   "source": "lead_api",
+   "counterparty": "50118815",
+   "payload": {
+    "lead_id": "L-729450",
+    "product": "Corrugated Box",
+    "quantity": 3000,
+    "unit": "Piece",
+    "specs": {},
+    "buyer_city": "Mumbai",
+    "buyer_state": "Maharashtra",
+    "via": "BL purchase"
+   }
+  },
+  {
+   "id": "s2-16",
+   "glid": "70221002",
+   "role": "seller",
+   "type": "lead.response",
+   "ago": "1d19h",
+   "source": "lead_api",
+   "payload": {
+    "lead_id": "L-729450",
+    "action": "called",
+    "outcome": "deal_lost"
+   }
+  },
+  {
+   "id": "s2-17",
+   "glid": "70221002",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "3h",
+   "source": "lead_api",
+   "counterparty": "50113377",
+   "payload": {
+    "lead_id": "L-731800",
+    "product": "Bubble Wrap Roll",
+    "quantity": 200,
+    "unit": "Roll",
+    "specs": {
+     "Width": "1 meter"
+    },
+    "buyer_city": "Ahmedabad",
+    "buyer_state": "Gujarat",
+    "via": "BL purchase"
+   }
+  },
+  {
+   "id": "s2-18",
+   "glid": "70221002",
+   "role": "seller",
+   "type": "engagement",
+   "ago": "1d",
+   "source": "engagement_api",
+   "payload": {
+    "kind": "lead_manager_open",
+    "count": 4
+   }
+  },
+  {
+   "id": "s2-19",
+   "glid": "70221002",
+   "role": "seller",
+   "type": "engagement",
+   "ago": "2h",
+   "source": "engagement_api",
+   "payload": {
+    "kind": "lead_manager_open",
+    "count": 2
+   }
+  },
+  {
+   "id": "s3-01",
+   "glid": "70221003",
+   "role": "seller",
+   "type": "profile.update",
+   "ago": "350d",
+   "source": "seller_profile_api",
+   "payload": {
+    "company": "AquaPure Systems",
+    "contact_name": "Kiran Rao",
+    "city": "Hyderabad",
+    "state": "Telangana",
+    "language": "en"
+   }
+  },
+  {
+   "id": "s3-02",
+   "glid": "70221003",
+   "role": "seller",
+   "type": "catalog.update",
+   "ago": "90d",
+   "source": "catalog_api",
+   "payload": {
+    "products": [
+     "Industrial RO Plant",
+     "Water Softener"
+    ]
+   }
+  },
+  {
+   "id": "s3-03",
+   "glid": "70221003",
+   "role": "seller",
+   "type": "kyc.update",
+   "ago": "60d",
+   "source": "kyc_api",
+   "payload": {
+    "gst_verified": false,
+    "bank_verified": true
+   }
+  },
+  {
+   "id": "s3-04",
+   "glid": "70221003",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "20d",
+   "source": "lead_api",
+   "counterparty": "50118821",
+   "payload": {
+    "lead_id": "L-723300",
+    "product": "Industrial RO Plant",
+    "quantity": 1,
+    "unit": "Unit",
+    "specs": {
+     "Capacity": "5000 LPH"
+    },
+    "buyer_city": "Vijayawada",
+    "buyer_state": "Andhra Pradesh",
+    "via": "BL purchase"
+   }
+  },
+  {
+   "id": "s3-05",
+   "glid": "70221003",
+   "role": "seller",
+   "type": "lead.response",
+   "ago": "19d",
+   "source": "lead_api",
+   "payload": {
+    "lead_id": "L-723300",
+    "action": "called",
+    "outcome": "connected"
+   }
+  },
+  {
+   "id": "s3-06",
+   "glid": "70221003",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "13d",
+   "source": "lead_api",
+   "counterparty": "50118822",
+   "payload": {
+    "lead_id": "L-726700",
+    "product": "Water Softener",
+    "quantity": 2,
+    "unit": "Unit",
+    "specs": {},
+    "buyer_city": "Hyderabad",
+    "buyer_state": "Telangana",
+    "via": "Enquiry"
+   }
+  },
+  {
+   "id": "s3-07",
+   "glid": "70221003",
+   "role": "seller",
+   "type": "engagement",
+   "ago": "12d",
+   "source": "engagement_api",
+   "payload": {
+    "kind": "lead_manager_open",
+    "count": 1
+   }
+  },
+  {
+   "id": "s3-08",
+   "glid": "70221003",
+   "role": "seller",
+   "type": "conversation.ended",
+   "ago": "9d",
+   "source": "vani_voice",
+   "payload": {
+    "session_id": "V-79550",
+    "channel": "voice",
+    "bot": "Seller Assist",
+    "product": null,
+    "captured": {
+     "callback_after": "@rel:+6d"
+    },
+    "pending": [],
+    "notes": [],
+    "outcome": "callback_requested",
+    "summary": "Busy with festive-season orders; asked to be called back after the festive rush.",
+    "lang": "en"
+   }
+  },
+  {
+   "id": "s3-09",
+   "glid": "70221003",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "8d",
+   "source": "lead_api",
+   "counterparty": "50118823",
+   "payload": {
+    "lead_id": "L-728000",
+    "product": "Industrial RO Plant",
+    "quantity": 1,
+    "unit": "Unit",
+    "specs": {},
+    "buyer_city": "Chennai",
+    "buyer_state": "Tamil Nadu",
+    "via": "BL purchase"
+   }
+  },
+  {
+   "id": "s3-10",
+   "glid": "70221003",
+   "role": "seller",
+   "type": "pns.call",
+   "ago": "3d2h",
+   "source": "pns_api",
+   "counterparty": "50112002",
+   "payload": {
+    "buyer_city": "Hyderabad",
+    "buyer_state": "Telangana",
+    "product": "Industrial RO Plant",
+    "answered": false
+   }
+  },
+  {
+   "id": "s3-11",
+   "glid": "70221003",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "3d1h",
+   "source": "lead_api",
+   "counterparty": "50112002",
+   "payload": {
+    "lead_id": "L-731990",
+    "product": "Industrial RO Plant",
+    "quantity": 1,
+    "unit": "Unit",
+    "specs": {
+     "Capacity": "2000 LPH"
+    },
+    "buyer_city": "Hyderabad",
+    "buyer_state": "Telangana",
+    "via": "BL purchase",
+    "buyer_name": "Lakshmi Reddy",
+    "use_case": "packaged drinking water"
+   }
+  },
+  {
+   "id": "s4-01",
+   "glid": "70221004",
+   "role": "seller",
+   "type": "profile.update",
+   "ago": "420d",
+   "source": "seller_profile_api",
+   "payload": {
+    "company": "Patel Pipes & Fittings",
+    "contact_name": "Mahesh Patel",
+    "city": "Bhopal",
+    "state": "Madhya Pradesh",
+    "language": "hi",
+    "mobile": "+91 94250 77889"
+   }
+  },
+  {
+   "id": "s4-02",
+   "glid": "70221004",
+   "role": "seller",
+   "type": "catalog.update",
+   "ago": "60d",
+   "source": "catalog_api",
+   "payload": {
+    "products": [
+     "PVC Pipe",
+     "Pipe Fittings",
+     "Water Storage Tank"
+    ]
+   }
+  },
+  {
+   "id": "s4-03",
+   "glid": "70221004",
+   "role": "seller",
+   "type": "kyc.update",
+   "ago": "150d",
+   "source": "kyc_api",
+   "payload": {
+    "gst_verified": true,
+    "bank_verified": true
+   }
+  },
+  {
+   "id": "s4-04",
+   "glid": "70221004",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "16d",
+   "source": "lead_api",
+   "counterparty": "50118831",
+   "payload": {
+    "lead_id": "L-724900",
+    "product": "PVC Pipe",
+    "quantity": 300,
+    "unit": "Piece",
+    "specs": {
+     "Size": "2 inch"
+    },
+    "buyer_city": "Jabalpur",
+    "buyer_state": "Madhya Pradesh",
+    "via": "BL purchase"
+   }
+  },
+  {
+   "id": "s4-05",
+   "glid": "70221004",
+   "role": "seller",
+   "type": "lead.response",
+   "ago": "15d20h",
+   "source": "lead_api",
+   "payload": {
+    "lead_id": "L-724900",
+    "action": "called",
+    "outcome": "deal_won"
+   }
+  },
+  {
+   "id": "s4-06",
+   "glid": "70221004",
+   "role": "seller",
+   "type": "lead.received",
+   "ago": "5d",
+   "source": "lead_api",
+   "counterparty": "50118832",
+   "payload": {
+    "lead_id": "L-728950",
+    "product": "Water Storage Tank",
+    "quantity": 10,
+    "unit": "Piece",
+    "specs": {
+     "Capacity": "1000 L"
+    },
+    "buyer_city": "Bhopal",
+    "buyer_state": "Madhya Pradesh",
+    "via": "Enquiry"
+   }
+  },
+  {
+   "id": "s4-07",
+   "glid": "70221004",
+   "role": "seller",
+   "type": "lead.response",
+   "ago": "4d22h",
+   "source": "lead_api",
+   "payload": {
+    "lead_id": "L-728950",
+    "action": "called",
+    "outcome": "quoted"
+   }
+  },
+  {
+   "id": "s4-08",
+   "glid": "70221004",
+   "role": "seller",
+   "type": "conversation.ended",
+   "ago": "12d",
+   "source": "vani_voice",
+   "payload": {
+    "session_id": "V-79310",
+    "channel": "voice",
+    "bot": "Seller Assist",
+    "product": "PVC Pipe",
+    "captured": {
+     "pref_min_qty": "50 Piece",
+     "pref_regions": "Madhya Pradesh, Chhattisgarh"
+    },
+    "pending": [],
+    "notes": [
+     "Opted in for live call transfers 10am-7pm"
+    ],
+    "outcome": "prefs_updated",
+    "summary": "Opted in to live buyer call transfers (10am to 7pm); wants MP and Chhattisgarh leads of 50+ pieces.",
+    "lang": "hi"
+   }
+  },
+  {
+   "id": "s4-09",
+   "glid": "70221004",
+   "role": "seller",
+   "type": "engagement",
+   "ago": "1d",
+   "source": "engagement_api",
+   "payload": {
+    "kind": "lead_manager_open",
+    "count": 2
+   }
+  }
+ ]
+}

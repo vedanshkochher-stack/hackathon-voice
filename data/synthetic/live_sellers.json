@@ -1,0 +1,9 @@
+{
+  "_label": "SYNTHETIC. Stand-in for ast_seller_pns / update_ast_buy_variables_by_city_tool: sellers currently available for a live call transfer, by product.",
+  "pool": {
+    "PVC Pipe": [{"glid": "70221004", "company": "Patel Pipes & Fittings", "city": "Bhopal"}],
+    "Pipe Fittings": [{"glid": "70221004", "company": "Patel Pipes & Fittings", "city": "Bhopal"}],
+    "Bubble Wrap Roll": [{"glid": "70221002", "company": "Om Packaging", "city": "Ahmedabad"}],
+    "Corrugated Box": [{"glid": "70221002", "company": "Om Packaging", "city": "Ahmedabad"}]
+  }
+}
