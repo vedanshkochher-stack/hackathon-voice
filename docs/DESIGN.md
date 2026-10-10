@@ -133,10 +133,64 @@ Average LLM call is ~230 ms.
    own file. With no recent interests left, it asks about what the buyer actually bought (`purchases` in
    frontmatter), as a repeat order: *"Maine dekha ki aapne 3 hafte pehle Om Packaging se Corrugated Box liya tha.
    Kya aapko dobara Corrugated Box chahiye?"* With nothing in the file, it asks a plain "any other requirement?".
-   It never suggests generic "people also buy" products. Campaigns still never quote searches.
+   It never suggests generic "people also buy" products to a buyer with history. The one exception is a buyer
+   whose file holds only the BL (below). Campaigns still never quote searches.
 3. If the buyer names one, the bot switches to it and asks only that product's quantity and specs. Name, city
    and state stay known.
 4. A second "no" ends with a clean thank-you, not "requirement noted".
+
+<a id="related"></a>**BL only, no history, buyer says "No": top-k related products (`relprod/`).** Sunita (50112004)
+posted a Water Storage Tank BL on the website yesterday. Her file has nothing else: no searches, seller calls or
+purchases, so there is nothing of her own to probe with. "No" to the BL opening, or anything `NO_LONGER_NEEDED`
+("requirement nahi hai", "cancel"), closes the BL as above and then probes with products related to it:
+*"IndiaMART par Water Storage Tank se jude products mein Water Level Controller aur Float Valve bhi milte hain.
+Kya aapko inme se kisi ki zarurat hai?"* A bare "No" counts as withdrawal only on the first turn of a BL opening
+for a buyer with no history. For everyone else it keeps its old meaning.
+```
+ data/item/items.csv.csv (glcat_mcat_name) ─ python -m relprod, once ─► name vectors, saved under data/item/
+                          ─ server start ─► loaded into an in-memory FAISS index (seconds)
+ buyer.md frontmatter ─► current lead (open_thread.product, or the BL just withdrawn)   weight 1.0
+                         liked products   (interests, via liked)                         weight 0.9
+                         viewed products  (interests: viewed, searched, seller call)     weight 0.8
+                         complements of the lead named by the Sarvam LLM               weight 0.85
+                         [Google result titles for the lead, if keys are set]           weight 0.8
+                      ─► best weighted cosine per item ─► top 3
+ call start:     BL-only buyer ─► prefetch in the background
+ "No":           top 3 from cache (~10 ms) ─► speak 2, keep 3 in session state
+ API:            GET /api/related/{glid}?k=3 ─► reads that buyer's context (read-through fresh) ─► same match
+```
+- **Inputs come only from the context file.** Liked and viewed products are new buyer events, `product.like`
+  and `product.view` (whitelisted: product, mcat, platform). They land in `interests` next to searches and
+  seller calls, tagged `via: liked` / `viewed`, and a like stays flagged `liked: true` even after later views.
+- **Name vectors only, no images: all-MiniLM-L6** (ONNX via fastembed, no torch). The item list is 110k MCAT names
+  (`glcat_mcat_name`); at 456 names/s on 8 CPU cores they embed in ~4 min. The earlier pc_item export (4.4M rows,
+  1.89M unique names) would take ~70 min, and multilingual MiniLM-L12 (~160/s) or bge-small ~3.3 h. L6 still ranks Packaging Tape / Bubble Wrap for Corrugated Box and
+  Water Softener for RO Plant; CLIP's text tower ranked "Office Chair" there. It is English-only, like the names.
+- **Built once, saved, loaded at start.** The build embeds 20k names at a time straight into the index (the full
+  float32 matrix, 2.9 GB, never exists), checkpoints every 200k, and resumes a stopped build. `names.json` records
+  the CSV size, mtime and model: a different CSV or model triggers a rebuild, and an unfinished index is never
+  served. A file lock keeps a second process from building at the same time; it waits and loads instead.
+- **Related, not similar.** Embeddings rank the same product highest ("Sintex Water Storage Tank" 0.87 above
+  "Water Level Controller" 0.83), so no threshold can separate them. An item whose head noun or catalogue product
+  is the lead's own is skipped. Products the buyer liked or viewed are kept: they asked for them.
+- **Scoring.** Each item keeps its best weighted cosine over the queries. Items below 0.25 are dropped (a T-shirt
+  scores 0.16 for a PVC pipe), and results are de-duplicated by kind ("level controller") and near-identical names.
+- **Complements from the Sarvam LLM.** Similarity alone returns variants of the lead (Water Storage Tank → Water
+  Tank Accessories, Storage Tank Heater, Tank Container). The Sarvam LLM already used by the bot names what a buyer
+  of the lead needs alongside it (accessories, spares, consumables, services; never the product itself), and each
+  name is matched to the store like any other query, so the answer is always a real item. Exact MCAT matches score
+  0.85 and outrank the lead's own neighbours (≤ 0.75), so with the LLM on the top 3 lean to complements. It also
+  covers acronyms ("RO" alone means little to an embedding). Results are cached per lead on disk; on a call the
+  lookup runs in the background prefetch, so the 8 s LLM timeout never delays a turn. Off without
+  `SARVAM_API_KEY` or with `RELATED_LLM=off`; failures are not cached and are retried.
+- **Spoken vs kept.** The bot reads out two, the VANI probe rule. All three stay in session state. The buyer can
+  pick by ordinal ("doosra wala") or by name, including the one not read out.
+- **Failure modes.** CSV missing, or the store still building: MCAT co-purchases of the lead and of liked/viewed
+  products (answers cached during the build are dropped once it is ready). No Google keys, or a timeout: the store
+  alone. Any error: the plain "any other requirement?" probe. A suggestion never breaks a call.
+- **Scale.** The index stores fp16 vectors with exact inner-product search: 110k names in ~85 MB; 1.89M would take
+  ~1.45 GB (float32: 2.9 GB, more than this machine had free). Cosines are exact to ~3 decimals. All of a buyer's queries go
+  through one scan. Beyond a few million names, switch to `IndexIVFPQ`; the `RelatedStore` interface stays the same.
 
 **Languages (11) and switching.** Hindi, English, Bengali, Tamil, Telugu, Kannada, Malayalam, Marathi,
 Gujarati, Punjabi and Odia.

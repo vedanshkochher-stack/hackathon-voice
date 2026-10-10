@@ -34,6 +34,14 @@
    "story": "No history at all. Must get a clean generic opening."
   },
   {
+   "glid": "50112004",
+   "roles": [
+    "buyer"
+   ],
+   "label": "Sunita (Jaipur)",
+   "story": "BL only: posted a Water Storage Tank requirement on the website yesterday, capacity missing. No searches, calls or purchases. Says \"No\" -> top related products from the pc_item vector store."
+  },
+  {
    "glid": "70221001",
    "roles": [
     "seller"

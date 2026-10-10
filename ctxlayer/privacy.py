@@ -18,6 +18,8 @@ ALLOWED_FIELDS: dict[str, set[str]] = {
     "kyc.update": {"mobile_verified", "email_verified", "gst_verified", "bank_verified"},
     "source.status": {"source", "status"},
     "search": {"query", "mcat", "platform"},
+    "product.view": {"product", "mcat", "platform"},   # buyer opened a product page
+    "product.like": {"product", "mcat", "platform"},   # buyer liked / shortlisted a product
     "enquiry.created": {"enq_id", "product", "quantity", "unit", "specs", "city", "channel"},
     "enquiry.update": {"enq_id", "quantity", "unit", "specs"},
     "enquiry.status": {"enq_id", "status", "note"},

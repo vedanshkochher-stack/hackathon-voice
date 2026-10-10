@@ -6,6 +6,7 @@ Integration endpoints (what a real platform would call):
   POST /api/events                          webhook: any source pushes normalised events
   GET  /api/context/{glid}/{role}           the file (read-through fresh)
   GET  /api/context/{glid}/buyer/vani-vars  VANI prompt variables + personalised initial_message
+  GET  /api/related/{glid}?k=3               top related pc_items for a buyer (lead + liked/viewed from buyer.md)
 Demo endpoints: sessions for voice/WhatsApp, Sarvam TTS/STT, SSE live updates, consumers, lift.
 """
 from __future__ import annotations
@@ -24,6 +25,7 @@ from pydantic import BaseModel
 
 sys.stdout.reconfigure(encoding="utf-8")
 
+import relprod  # noqa: E402
 from bot import speech  # noqa: E402
 from bot.engine import Engine  # noqa: E402
 from bot.evaluate import lift_report  # noqa: E402
@@ -59,6 +61,7 @@ refresher.listeners.append(_broadcast)
 async def _startup():
     global _loop
     _loop = asyncio.get_running_loop()
+    relprod.start_loading()  # CSV -> name vectors -> FAISS, in a background thread
 
 
 @app.get("/")
@@ -193,6 +196,20 @@ class StartIn(BaseModel):
     call_seller: str | None = None
     outbound: bool = False
     persist: bool | None = None
+
+
+@app.get("/api/related/{glid}")
+def related(glid: str, k: int = 3):
+    """Top-k related pc_items for a buyer, matched on the current lead and the products they liked / viewed,
+    all read from the buyer's context file (read-through fresh)."""
+    if not 1 <= k <= 20:
+        raise HTTPException(400, "k must be 1-20")
+    if store.max_seq(glid, "buyer"):
+        refresher.ensure_fresh(glid, "buyer")
+    c = reader.read(glid, "buyer")
+    if not c:
+        raise HTTPException(404, f"no buyer context for GLID {glid}")
+    return {"glid": glid, **relprod.for_buyer(c.meta, k=k), "store": relprod.status()}
 
 
 @app.post("/api/session/start")

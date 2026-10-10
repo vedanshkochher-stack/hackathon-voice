@@ -1615,6 +1615,38 @@
     "kind": "lead_manager_open",
     "count": 2
    }
+  },
+  {
+   "id": "b4-01",
+   "glid": "50112004",
+   "role": "buyer",
+   "type": "profile.update",
+   "ago": "40d",
+   "source": "user_profile_api",
+   "payload": {
+    "name": "Sunita",
+    "city": "Jaipur",
+    "state": "Rajasthan",
+    "language": "hi",
+    "mobile": "+91 90000 44556"
+   }
+  },
+  {
+   "id": "b4-02",
+   "glid": "50112004",
+   "role": "buyer",
+   "type": "enquiry.created",
+   "ago": "1d",
+   "source": "buylead_api",
+   "payload": {
+    "enq_id": "ENQ-733410",
+    "product": "Water Storage Tank",
+    "quantity": 2,
+    "unit": "Piece",
+    "specs": {},
+    "city": "Jaipur",
+    "channel": "website"
+   }
   }
  ]
 }
