@@ -44,3 +44,8 @@ Active 4 of 30 days · last active 10 Oct 10:59 · prefers App · hot
 - Never ask again: name, city, state.
 - Past complaint (18 Sep, resolved): be empathetic if raised.
 - Never reveal other parties' data; never read out KYC.
+
+## Update #1 · 2026-10-10T18:02+05:30 · voice · Shubh · -
+> Changes from this conversation. Where this differs from the sections above, this update is newer and wins.
+- conversation: The agent contacted Arjun regarding his interest in Bubble Wrap Rolls to connect him with a seller, but the user declined to provide the required quantity details and ended the conversation.
+- state: no open lead
