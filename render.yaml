@@ -1,0 +1,16 @@
+# Render Blueprint: one web service, one build command, one start command.
+# The build installs deps, downloads the embedding model into .models/ and builds the FAISS index from
+# data/item/items.csv.csv into data/item/ (both inside the project, so they ship into the running service).
+services:
+  - type: web
+    name: hackathon-voice
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt && python -m relprod
+    startCommand: uvicorn server.app:app --host 0.0.0.0 --port $PORT --workers 1
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.12
+      - key: SARVAM_API_KEY
+        sync: false          # set the value in the Render dashboard

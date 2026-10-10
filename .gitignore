@@ -5,4 +5,8 @@ out/state/
 .pytest_cache/
 out/runs/
 data/pc_item/
-data/item/
+# data/item/items.csv.csv is committed (Render builds the index from it); built artifacts are not
+data/item/names.*
+data/item/build.*
+data/item/grounding_cache.*
+.models/

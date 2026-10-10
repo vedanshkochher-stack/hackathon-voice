@@ -95,6 +95,22 @@ Until the store is `ready`, answers come from catalogue co-purchases. On a call:
 and nothing else), start a call, click **No**: the BL is closed and VANI offers two of the three. Design:
 `docs/DESIGN.md#related`.
 
+## Deploy on Render
+
+`render.yaml` defines one web service (Blueprint), or set these two fields on a Render Web Service by hand:
+
+| | |
+|---|---|
+| Build command | `pip install -r requirements.txt && python -m relprod` |
+| Start command | `uvicorn server.app:app --host 0.0.0.0 --port $PORT --workers 1` |
+| Environment | `SARVAM_API_KEY` (secret), `PYTHON_VERSION=3.10.12` |
+
+The build downloads the embedding model into `.models/` and builds the FAISS index from the committed
+`data/item/items.csv.csv` into `data/item/`; both are inside the project, so they ship into the running service,
+which loads them in ~0.1 s. Measured locally: build ~3 min on 8 cores (slower on smaller build machines), server
+~330 MB RSS, so the 512 MB Starter plan fits. Keep `--workers 1`: call sessions and live updates live in process
+memory. State (event store, buyer.md files) is re-seeded on every start; Render's disk does not persist anyway.
+
 ## Repository map
 
 ```
