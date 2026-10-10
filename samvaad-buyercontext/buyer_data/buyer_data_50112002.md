@@ -45,3 +45,8 @@ Active 5 of 30 days · last active 07 Oct 10:09 · prefers App · warm
 - Resume Industrial RO Plant: ask only Body Material; then offer a live seller.
 - Never ask again: name, city, state, product, qty, Capacity.
 - Never reveal other parties' data; never read out KYC.
+
+## Update #1 · 2026-10-10T18:05+05:30 · voice · Shubh · -
+> Changes from this conversation. Where this differs from the sections above, this update is newer and wins.
+- conversation: The user initially declined requirements for an Industrial RO Plant and Water Softener but expressed interest in UV Sterilizers. The agent noted the requirement and informed the user that seller details would be shared via WhatsApp.
+- state: Industrial RO Plant (in progress) · captured: quantity=1 Unit; Capacity=2000 LPH · pending: Body Material · next: ask:Body Material; offer:live_seller
