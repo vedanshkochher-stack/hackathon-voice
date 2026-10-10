@@ -49,3 +49,8 @@ Active 8 of 30 days · last active 10 Oct 07:09 · prefers App · hot
 - Never ask again: name, city, state, product, qty, Size.
 - Asked price before: the seller quotes; never state a price.
 - Never reveal other parties' data; never read out KYC.
+
+## Update #1 · 2026-10-10T18:10+05:30 · voice · Shubh · -
+> Changes from this conversation. Where this differs from the sections above, this update is newer and wins.
+- conversation: The agent contacted Ramesh regarding a PVC pipe inquiry. While the user was no longer interested in pipes, he expressed interest in Valves, and the agent successfully transferred the call to a suitable seller in Noida, Uttar Pradesh.
+- state: PVC Pipe (in progress) · captured: quantity=500 Piece; Size=4 inch · pending: Pressure Rating · next: ask:Pressure Rating; offer:live_seller
